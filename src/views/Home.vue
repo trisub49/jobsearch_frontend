@@ -1,18 +1,49 @@
 <template>
+
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <MainPageStructure title="Legújabb állások">
+      <JobView v-for="jobToComponent in newJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
+    </MainPageStructure>
   </div>
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+
+import MainPageStructure from '@/components/MainPageStructure.vue';
+import JobView from '@/components/JobView.vue';
+import axios from 'axios'
 
 export default {
-  name: "Home",
+
   components: {
-    HelloWorld,
+    MainPageStructure,
+    JobView
   },
-};
+
+  data() {
+    return {
+      newJobs: []
+    }
+  },
+
+  created() {
+    this.loadNewJobs();
+  },
+
+  methods: {
+    loadNewJobs() {
+      axios.get('http://localhost:8080/api/job')
+      .then(response => response.data)
+      .then(data => {
+        data.forEach(job => {
+          this.newJobs.push(job);
+        });
+      }) 
+      .catch(error => console.log(error));
+    }
+  }
+}
+
 </script>
+
