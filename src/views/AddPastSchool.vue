@@ -43,9 +43,13 @@ export default {
                 school: this.school, 
                 date: this.date, 
                 education: this.education
+            })
+            .then(response => {
+                if(response.status == 201) {
+                    this.$router.push('/profile');
+                    this.$forceUpdate();
+                }
             });
-            this.$router.push('/profile');
-            this.$forceUpdate();
         }
     }
 }

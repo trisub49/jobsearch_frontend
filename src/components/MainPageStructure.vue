@@ -24,7 +24,9 @@
 <script>
 
 export default {
+
     name: 'mainpagestructure',
+    
     props: [
         'title'
     ]

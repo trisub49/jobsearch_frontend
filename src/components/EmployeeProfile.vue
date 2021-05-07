@@ -3,7 +3,7 @@
     <div class="employeeprofile">
         <div id="profilemain">
             <div id="profilehead">
-                <img v-if="hasPicture" id="profilepic" src="img/jobseeker.jpg" alt="Saját kép">
+                <img v-if="employee.picture != null" id="profilepic" :src="loadedPicture" alt="Saját kép">
                 <img v-else id="profilepic" src="img/empty_user.jpg" alt="Saját kép">
             </div>
             <div id="profilebody">
@@ -15,8 +15,16 @@
                 </table>
             </div>
             <div id="profileactions">
-                <button>Kép törlése</button>
-                <button class="float-right" @click="$router.push('/profile/editemployee')">Szerkesztés</button>
+                <div v-if="employee.picture != null" id="pictureaction">
+                    <button @click="deletePicture">Kép törlése</button>
+                </div>
+                <div v-else id="pictureaction">
+                    <input type="file" accept="image/png, image/jpeg" @change="onFileSelected" />
+                    <button v-if="selectedFile != null" @click="onFileUpload">Feltöltés</button>
+                </div>
+                <div id="profileedit">
+                    <button class @click="$router.push('/profile/editemployee')">Szerkesztés</button>
+                </div>
             </div>
             <div id="jobsandschools"><PastJobsAndSchools /></div>
         </div>
@@ -33,6 +41,14 @@ button {
     padding-left: 3px;
     padding-right: 3px;
     font-size: small;
+}
+input {
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0;
+    font-size: small;
+    font-weight: bold;
 }
 #profilemain {
     background-color: white;
@@ -58,6 +74,9 @@ button {
     float: left;
     padding-bottom: 15px;
 }
+table {
+    width: 100%;
+}
 .dataname {
     padding-right: 15px;
     width: 50%;
@@ -65,7 +84,7 @@ button {
 .datavalue {
     color: rgb(51,102,187);
     font-weight: bold;
-    width: 50%;
+    width: 100%;
 }
 #profileactions {
     clear: both;
@@ -73,28 +92,51 @@ button {
 #jobsandschools {
     clear: both;
 }
+#profileedit {
+    float: right;
+    width: 30%;
+}
+#pictureaction {
+    float: left;
+    width: 70%;
+}
 
 </style>
 
 <script>
 
+import axios from 'axios'
 import PastJobsAndSchools from '@/components/PastJobsAndSchools.vue'
 
 export default {
+
     name: 'employeeprofile',
+
     components: {
         PastJobsAndSchools
     },
+
     data() {
         return {
             employee : {
+                id: sessionStorage.getItem('id'),
                 name: sessionStorage.getItem('name'),
                 age: this.calculateAge(sessionStorage.getItem('birthDate')),
                 settlement: !sessionStorage.getItem('settlement') ? "Nincs megadva" : sessionStorage.getItem('settlement'),
-                phoneNumber: !sessionStorage.getItem('phoneNumber') ? "Nincs megadva" : sessionStorage.getItem('phoneNumber') 
-            }
+                phoneNumber: !sessionStorage.getItem('phoneNumber') ? "Nincs megadva" : sessionStorage.getItem('phoneNumber'), 
+                picture: !sessionStorage.getItem('picture') ? null : sessionStorage.getItem('picture')
+            },
+            selectedFile: null,
+            loadedPicture: null
         }
     },
+
+    created() {
+        if(this.employee.picture != null) {
+            this.getEmployeePicture();
+        }
+    },
+
     methods: {
         calculateAge(dateString) {
             var today = new Date();
@@ -103,6 +145,43 @@ export default {
             var m = today.getMonth() - birthDate.getMonth();
             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
             return age;
+        },
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0];
+        },
+        onFileUpload() {
+            const formData = new FormData();
+            var id = sessionStorage.getItem('id')
+            formData.append('image', this.selectedFile, this.selectedFile.name);
+            axios.post(`http://localhost:8080/api/img/upload/employee/${id}`, formData)
+            .then(response => {
+                if(response.status == 201) {
+                    sessionStorage.setItem('picture', id.concat("_").concat(this.selectedFile.name));
+                    this.employee.picture = sessionStorage.getItem('picture');
+                    this.getEmployeePicture();
+                    this.selectedFile = null;
+                } else {
+                    alert("Valami hiba történt!");
+                }
+            })
+        },
+        getEmployeePicture() {
+            axios.get(`http://localhost:8080/api/img/get/employee/${this.employee.picture}`, {responseType: 'arraybuffer'})
+            .then(response => {
+                if(response.status == 200) {
+                    this.loadedPicture = "data:image/jpg;base64, ".concat(Buffer.from(response.data, 'binary').toString('base64'));
+                }
+            });
+        },
+        deletePicture() {
+            axios.delete(`http://localhost:8080/api/img/delete/employee/${this.employee.picture}`)
+            .then(response => {
+                if(response.status == 200) {
+                    sessionStorage.setItem('picture', '');
+                    this.employee.picture = null;
+                    this.loadedPicture = null;
+                }
+            })
         }
     }
 }

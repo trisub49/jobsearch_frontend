@@ -109,12 +109,10 @@ export default {
             })
             .catch(error => console.log(error));
         },
-
         deleteSchool(id) {
             this.schools = this.schools.filter(school => school.id != id);
             axios.delete(`http://localhost:8080/api/info/delete/school/${id}`);
         },
-
         deleteJob(id) {
             this.jobs = this.jobs.filter(job => job.id != id);
             axios.delete(`http://localhost:8080/api/info/delete/job/${id}`);

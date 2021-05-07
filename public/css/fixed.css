@@ -9,9 +9,3 @@ body {
     background-repeat: no-repeat;
     font-family: "Inconsolata", monospace;
 }
-#footer {
-    padding: 10px; 
-    background-color: rgba(0,0,0,0.3); 
-    color: white; 
-    text-align: center;
-}

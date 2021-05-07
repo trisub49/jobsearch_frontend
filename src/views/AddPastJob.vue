@@ -43,8 +43,13 @@ export default {
                 job: this.company, 
                 date: this.date, 
                 scope: this.scope
+            })
+            .then(response => {
+                if(response.status == 201) {
+                    this.$router.push('/profile');
+                    this.$forceUpdate();
+                }
             });
-            this.$router.push('/profile');
         }
     }
 }

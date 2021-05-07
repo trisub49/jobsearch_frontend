@@ -45,7 +45,6 @@ export default {
             }
             return age;
         },
-
         inspection() {
             if(this.password !== this.password2) {
                 alert("Nem egyeznek a jelszavak!");
@@ -69,10 +68,11 @@ export default {
                         sessionStorage.setItem("id", data.id);
                         sessionStorage.setItem("status", data.status);
                         sessionStorage.setItem("name", data.name);
-                        sessionStorage.setItem("type", 0);
+                        sessionStorage.setItem("type", false);
                         sessionStorage.setItem("email", data.email);
                         sessionStorage.setItem("phoneNumber", data.phoneNumber)
                         sessionStorage.setItem("settlement", data.settlement);
+                        sessionStorage.setItem("birthdate", data.birthDate);
                         this.$router.push("/profile");
                     }
                 })

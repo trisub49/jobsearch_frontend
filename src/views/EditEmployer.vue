@@ -1,4 +1,5 @@
 <template>
+
     <div class="editemployer">
         <MainPageStructure title="Adatmódosítás">
             <form v-on:submit.prevent>
@@ -17,6 +18,7 @@
             </form>
         </MainPageStructure>
     </div>
+
 </template>
 
 <style scoped>

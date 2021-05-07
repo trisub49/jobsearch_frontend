@@ -60,7 +60,6 @@ export default {
             sessionStorage.setItem('type', this.type);
             location.reload();
         },
-
         authenticate() {
             axios.post("http://localhost:8080/api/auth/login", {
                 email: this.email, 

@@ -13,6 +13,10 @@ import MyJobs from "../views/MyJobs.vue"
 import AddNewJob from "../views/AddNewJob.vue"
 import MyRegistries from "../views/MyRegistries.vue"
 import FoundJobs from "../views/FoundJobs.vue"
+import ShowJob from "../views/ShowJob.vue"
+import EditJob from "../views/EditJob.vue"
+import ShowRegistries from "../views/ShowRegistries.vue"
+import ShowEmployee from "../views/ShowEmployee.vue"
 
 Vue.use(VueRouter);
 
@@ -31,6 +35,18 @@ const routes = [
     path: "/search/:postcode/:category/:scope",
     name: "FoundJobs",
     component: FoundJobs
+  },
+  {
+    path: "/showjob",
+    name: "ShowJob",
+    component: ShowJob,
+    props: true
+  },
+  {
+    path: "/editjob",
+    name: "EditJob",
+    component: EditJob,
+    props: true
   },
   {
     path: "/profile",
@@ -76,11 +92,23 @@ const routes = [
     path: "/myregistries",
     name: "MyRegistries",
     component: MyRegistries
+  },
+  {
+    path: "/showregistries",
+    name: "ShowRegistries",
+    component: ShowRegistries,
+    props: true
+  },
+  {
+    path: "/showemployee",
+    name: "ShowEmployee",
+    component: ShowEmployee,
+    props: true
   }
 ];
 
 const router = new VueRouter({
-  // mode: "history",
+  //mode: "history",
   base: process.env.BASE_URL,
   routes
 });

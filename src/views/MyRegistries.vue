@@ -7,21 +7,21 @@
                 <div v-if="!getWaitingJobs().length" class="joblister">Ez a lista üres.</div>
                 <div v-else class="joblister">
                     <table class="jobtable">
-                        <tr v-for="job in getWaitingJobs()" :key="job.id"><td class="jobcell"><a class="joblink" href="index.php?pg=showjobid='.$data['hirdetesID'].'">{{job.scope}}</a></td><td class="jobcell">{{job.company}}</td><td class="jobcell">{{job.place}}</td></tr>
+                        <tr v-for="job in getWaitingJobs()" :key="job.id"><td class="jobcell"><a @click="showJob(job.jobId)" class="joblink">{{job.jobName}}</a></td><td class="jobcell">{{job.jobCompany}}</td><td class="jobcell">{{job.jobSettlement}}</td></tr>
                     </table>
                 </div>
                 <span id="interview">Interjúra hívtak/hívnak:</span>
                 <div v-if="!getInterviewJobs().length" class="joblister">Ez a lista üres.</div>
                 <div v-else class="joblister">
                     <table class="jobtable">
-                        <tr v-for="job in getInterviewJobs()" :key="job.id"><td class="jobcell"><a class="joblink" href="index.php?pg=showjobid='.$data['hirdetesID'].'">{{job.scope}}</a></td><td class="jobcell">{{job.company}}</td><td class="jobcell">{{job.place}}</td></tr>
+                        <tr v-for="job in getInterviewJobs()" :key="job.id"><td class="jobcell"><a @click="showJob(job.jobId)" class="joblink">{{job.jobName}}</a></td><td class="jobcell">{{job.jobCompany}}</td><td class="jobcell">{{job.jobSettlement}}</td></tr>
                     </table>
                 </div>
                 <span id="declined">Mást választottak, jelentkezésedet elutasították:</span>
                 <div v-if="!getDeclinedJobs().length" class="joblister">Ez a lista üres.</div>
                 <div v-else class="joblister">
                     <table class="jobtable">
-                        <tr v-for="job in getDeclinedJobs()" :key="job.id"><td class="jobcell"><a class="joblink" href="index.php?pg=showjobid='.$data['hirdetesID'].'">{{job.scope}}</a></td><td class="jobcell">{{job.company}}</td><td class="jobcell">{{job.place}}</td></tr>
+                        <tr v-for="job in getDeclinedJobs()" :key="job.id"><td class="jobcell"><a @click="showJob(job.jobId)" class="joblink"> {{job.jobName}} </a></td><td class="jobcell">{{job.jobCompany}}</td><td class="jobcell">{{job.jobSettlement}}</td></tr>
                     </table>
                 </div>
             </div>    
@@ -81,41 +81,62 @@
 <script>
 
 import MainPageStructure from '@/components/MainPageStructure.vue'
+import axios from 'axios';
 
 export default {
+
     data() {
         return {
-            jobs: [
-                {id: 0, scope: 'Takarító', status: 0, company: 'Rapsic', place: 'Baja'},
-                {id: 1, scope: 'Takarító2', status: 1, company: 'Rapsic2', place: 'Baja'},
-                {id: 2, scope: 'Takarító3', status: 2, company: 'Rapsic3', place: 'Baja'}
-            ]
+            userId: sessionStorage.getItem('id'),
+            jobs: []
         }
     },
+
+    created() {
+        this.loadJobs();
+    },
+
     components: {
         MainPageStructure
     },
+
     methods: {
-        getWaitingJobs: function() {
+        loadJobs() {
+            axios.get(`http://localhost:8080/api/sign/${this.userId}`)
+            .then(response => {
+                if(response.status == 200) {
+                    this.jobs = response.data;
+                }
+            })
+        },
+        getWaitingJobs() {
             var waitingJobs = [];
             this.jobs.forEach(job => {
                 if(job.status == 0) waitingJobs.push(job);
             });
             return waitingJobs;
         },
-        getInterviewJobs: function() {
+        getInterviewJobs() {
             var interviewJobs = [];
             this.jobs.forEach(job => {
                 if(job.status == 1) interviewJobs.push(job);
             });
             return interviewJobs;
         },
-        getDeclinedJobs: function() {
+        getDeclinedJobs() {
             var declinedJobs = [];
             this.jobs.forEach(job => {
                 if(job.status == 2) declinedJobs.push(job);
             });
             return declinedJobs;
+        },
+        showJob(id) {
+            axios.get(`http://localhost:8080/api/job/${id}`)
+            .then(response => {
+                if(response.status == 200) {
+                    this.$router.push({name: 'ShowJob', params: {job: response.data}});
+                }
+            })
         }
     }
 }

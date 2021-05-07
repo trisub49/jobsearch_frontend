@@ -10,7 +10,7 @@
                 <label for="phoneNumber">Telefonszám:</label><br>
                 <input v-model="phoneNumber" name="phoneNumber" type="tel" required><br>
                 <br><br>
-                <div class="buttonwrapper"><button @click="editProfile">Megváltoztat</button></div><br>
+                <div class="buttonwrapper"><button @click="editProfile()">Megváltoztat</button></div><br>
             </form>
         </MainPageStructure>
     </div>
@@ -43,16 +43,11 @@ export default {
                 name: this.name, 
                 settlement: this.settlement, 
                 phoneNumber: this.phoneNumber
-            })
-            .then(response => { 
-                if(response.status == status.ok) {
-                    sessionStorage.setItem('name', this.name);
-                    sessionStorage.setItem('settlement', this.settlement);
-                    sessionStorage.setItem('phoneNumber', this.phoneNumber);
-                    this.$router.push('/profile')
-                }
-            })
-            .catch(error => console.log(error))
+            });
+            sessionStorage.setItem('name', this.name);
+            sessionStorage.setItem('settlement', this.settlement);
+            sessionStorage.setItem('phoneNumber', this.phoneNumber);
+            this.$router.push('/profile');
         }
     }
 }

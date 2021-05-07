@@ -7,11 +7,10 @@
                 <div v-else id="joblister">
                     <table id="jobtable">
                         <tr><th class="jobcell">Munkakör</th><th class="jobcell">Határidő</th><th class="jobcell">Jelentkezők</th></tr>
-                        <tr v-for="job in jobs" :key="job.id"><td class="jobcell"><a class="joblink">{{job.scope}}</a></td><td class="jobcell">{{job.deadline}}</td><td class="jobcell"><a class="joblink">{{job.signers}} fő</a></td></tr>
+                        <tr v-for="job in jobs" :key="job.id"><td class="jobcell"><a @click="showJob(job)" class="joblink">{{job.scope}}</a></td><td class="jobcell">{{job.deadline}}</td><td class="jobcell"><a @click="showRegistries(job.registries)" class="joblink">{{job.registries.length}} fő</a></td></tr>
                     </table>
                 </div>
             </div>
-            <v-icon>account</v-icon>
             <hr>
             <div class="buttonwrapper"><button @click="$router.push('/myjobs/add')">Hirdetésfeladás</button></div><br><br> 
         </MainPageStructure>
@@ -92,12 +91,17 @@ export default {
         findMyJobs() {
             axios.get(`http://localhost:8080/api/job/emp/${sessionStorage.getItem('id')}`)
             .then(response => response.data)
-            .then(data => {
-                data.forEach(job => {
-                    this.jobs.push(job);
-                });
-            })
+            .then(data => this.jobs = data)
             .catch(error => alert(error));
+        },
+        showJob(jobToPage) {
+            this.$router.push({name: 'ShowJob', params: {job: jobToPage}});
+        },
+        showRegistries(registries) {
+            if(registries.length > 0) {
+                console.log(registries);
+                this.$router.push({name: 'ShowRegistries', params: {registryList: registries}});
+            }
         }
     }
 }
