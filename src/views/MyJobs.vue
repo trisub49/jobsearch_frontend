@@ -1,21 +1,21 @@
 <template>
-
-    <div class="myjobs">
+    <v-container class="myjobs">
         <MainPageStructure title="Hirdetéseid">
-            <div id="background">
-                <div v-if="!jobs.length" id="joblister">Nincs feladott hirdetésed.</div>
-                <div v-else id="joblister">
+            <v-container id="background">
+                <v-container v-if="!jobs.length" id="joblister">Nincs feladott hirdetésed.</v-container>
+                <v-container v-else id="joblister">
                     <table id="jobtable">
                         <tr><th class="jobcell">Munkakör</th><th class="jobcell">Határidő</th><th class="jobcell">Jelentkezők</th></tr>
                         <tr v-for="job in jobs" :key="job.id"><td class="jobcell"><a @click="showJob(job)" class="joblink">{{job.scope}}</a></td><td class="jobcell">{{job.deadline}}</td><td class="jobcell"><a @click="showRegistries(job.registries)" class="joblink">{{job.registries.length}} fő</a></td></tr>
                     </table>
-                </div>
-            </div>
-            <hr>
-            <div class="buttonwrapper"><button @click="$router.push('/myjobs/add')">Hirdetésfeladás</button></div><br><br> 
+                </v-container>
+            </v-container>
+            <v-divider />
+            <v-container class="text-center">
+                <v-btn class="mainbutton" depressed @click="$router.push('/myjobs/add')">Hirdetésfeladás</v-btn>
+            </v-container>
         </MainPageStructure>
-    </div>     
-
+    </v-container>     
 </template>
 
 <style scoped>
@@ -38,32 +38,20 @@
     background-color: rgba(234, 234, 250,0.9);
     font-weight: 500;
 }
+th {
+    border-bottom: 0.5px solid black;
+}
 .jobcell {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
     text-align: left;
     width: 33.3%;
     border-collapse: collapse;
-    border-bottom: 0.5px solid rgba(0,0,0,0.3);
 }
 .joblink, .joblink:hover {
     text-decoration: none;
-    color:  rgb(51,102,187);
+    color: black;
     font-weight: bold;
 }
-button {
-    padding: 5px;
-    border: 0.5px solid  rgba(0,0,0,0.3);
-    border-radius: 5px 5px;
-    font-weight: bold;
-    width: 50%;
-    float: center;
-}
-button:hover {
-    transition: background-color 1.0s;
-    background-color: rgba(0,0,0,0.3);
-}
-
 </style>
 
 <script>

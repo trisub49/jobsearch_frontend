@@ -1,35 +1,45 @@
 <template>
 
-    <div class="pastjobsandschools">
-        <hr>
-        <h5><b>Tanulmányok:</b></h5>
-        <div class="lists" v-if="schools.length">
+    <v-container class="pastjobsandschools">
+        <h3>Tanulmányok:</h3>
+        <v-spacer />
+        <v-container class="lists" v-if="schools.length">
             <table>
                 <tr v-for="school in schools" :key="school.id">
-                    <td class="forschoolanddate">{{school.school}} ({{school.date}})</td><td class="foreducation">{{school.education}}</td>
-                    <td class="fordeletebutton"><button @click="deleteSchool(school.id)" class="deletebutton">X</button></td>
+                    <td class="forschoolanddate">{{school.school}} ({{school.date}})</td><td class="foreducation"><b>{{school.education}}</b></td>
+                    <td class="fordeletebutton"><v-btn icon @click="deleteSchool(school.id)"><v-icon>mdi-delete-outline</v-icon></v-btn></td>
                 </tr>
             </table>
-        </div>
-        <div v-else>Nincs megadva</div>
-        <button @click="$router.push('/profile/addschool')" class="addto">+ Hozzáadás</button>
-        <hr>
-        <h5><b>Volt munkahelyek:</b></h5>
-        <div class="lists" v-if="jobs.length">
+        </v-container>
+        <v-container v-else class="lists">Nincs megadva</v-container>
+        <v-btn @click="$router.push('/profile/addschool')" icon small>
+            <v-icon>mdi-plus-thick</v-icon>
+        </v-btn>
+        <v-divider />
+        <h3>Volt munkahelyek:</h3>
+        <v-spacer />
+        <v-container class="lists" v-if="jobs.length">
             <table>
                 <tr v-for="job in jobs" :key="job.id">
-                    <td class="forschoolanddate">{{job.job}} ({{job.date}})</td><td class="foreducation">{{job.scope}}</td>
-                    <td class="fordeletebutton"><button @click="deleteJob(job.id)" class="deletebutton">X</button></td>
+                    <td class="forschoolanddate">{{job.job}} ({{job.date}})</td><td class="foreducation"><b>{{job.scope}}</b></td>
+                    <td class="fordeletebutton"><v-btn icon @click="deleteJob(job.id)"><v-icon>mdi-delete-outline</v-icon></v-btn></td>
                 </tr>
             </table>
-        </div>        
-        <div v-else>Nincs megadva</div>
-        <button @click="$router.push('/profile/addjob')" class="addto">+ Hozzáadás</button>
-    </div>
+        </v-container>        
+        <v-container v-else class="lists">Nincs megadva</v-container>
+        <v-btn @click="$router.push('/profile/addjob')" icon small>
+            <v-icon>mdi-plus-thick</v-icon>
+        </v-btn>
+    </v-container>
 
 </template>
 
 <style scoped>
+
+.pastjobsandschools {
+    font-size: small;
+    line-height: unset;
+}
 
 span {
     width: 100%;
@@ -38,7 +48,6 @@ span {
     text-align: left;
     padding-left: 2.5%;
     padding-right: 2.5%;
-    color: rgb(51,102,187);
 }
 .addto {
     margin-top: 10px;
@@ -50,12 +59,6 @@ span {
 }
 .del {
     float: right;
-}
-.deletebutton {
-    font-size: medium;
-    font-weight: bold;
-    border: none;
-    background: none;
 }
 table {
     width: 100%;

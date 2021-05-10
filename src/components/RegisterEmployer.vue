@@ -1,80 +1,135 @@
 <template>
-
-    <div class="registeremployer">
-       <form name="registerform" @submit="inspection()" v-on:submit.prevent>
-            <label for="company">Cégnév:</label><br>
-            <input v-model="company" name="company" type="text" required><br>
-            <label for="name">Saját név:</label><br>
-            <input v-model="name" name="name" type="text" required><br>
-            <label for="email">E-Mail:</label><br>
-            <input v-model="email" name="email" type="email" required><br>
-            <label for="password">Jelszó:</label><br>
-            <input v-model="password" name="password" type="password" required minlength="8" maxlength="16"><br>
-            <label for="password2">Jelszó megerősítése:</label><br>
-            <input v-model="password2" name="password2" type="password" required minlength="8" maxlength="16"><br>
-            <label for="settlement">Telephely (város):</label><br>
-            <input v-model="settlement" name="settlement" type="search" required><br>
-            <label for="phonenumber">Telefonszám:</label><br>
-            <input v-model="phoneNumber" name="phonenumber" type="tel" required><br><br>
-            <div class="buttonwrapper"><button type="submit">Regisztráció</button></div><br>
-        </form>
-    </div>
-
+  <div class="registeremployer">
+    <v-card>
+      <v-card-title>
+        <h4>Regisztráció munkaadóként</h4>
+      </v-card-title>
+      <v-card-text>
+        <v-form>
+          <v-text-field
+            label="Cégnév"
+            prepend-icon="mdi-briefcase-outline"
+            v-model="company"
+            required
+          />
+          <v-text-field
+            label="Saját név"
+            prepend-icon="mdi-account-circle"
+            v-model="name"
+            required
+          />
+          <v-text-field
+            label="E-mail cím"
+            prepend-icon="mdi-at"
+            v-model="email"
+            required
+          />
+          <v-text-field
+            label="Jelszó"
+            prepend-icon="mdi-lock"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
+            v-model="password"
+            required
+            minlength="8"
+            maxlength="16"
+          />
+          <v-text-field
+            label="Jelszó megerősítése"
+            prepend-icon="mdi-lock"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
+            v-model="password2"
+            required
+            minlength="8"
+            maxlength="16"
+          />
+          <v-text-field
+            label="Telephely"
+            prepend-icon="mdi-map-marker"
+            v-model="settlement"
+            type="search"
+            required
+          />
+          <v-text-field
+            label="Telefonszám"
+            prepend-icon="mdi-phone"
+            v-model="phoneNumber"
+            required
+          />
+        </v-form>
+        <v-divider />
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn
+          width="50%"
+          class="mainbutton"
+          color="success"
+          @click="inspection()"
+          >Regisztráció</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
+<style scoped>
+.v-card {
+  margin-top: 40px;
+}
+</style>
 
 <script>
-
-import axios from 'axios';
+import axios from "axios";
 
 export default {
+  data() {
+    return {
+      company: "",
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
+      settlement: "",
+      phoneNumber: "",
+      showPassword: false,
+    };
+  },
 
-     data() {
-        return {
-            company: '',
-            name: '',
-            email: '',
-            password: '',
-            password2: '',
-            settlement: '',
-            phoneNumber: ''
-        }
-    },
-
-    methods: {
-        inspection() {
-            if(this.password != this.password2) {
-                alert("Nem egyeznek a jelszavak!");
+  methods: {
+    inspection() {
+      if (this.password != this.password2) {
+        alert("Nem egyeznek a jelszavak!");
+      } else {
+        axios
+          .post("http://localhost:8080/api/auth/register-employer", {
+            company: this.company,
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            settlement: this.settlement,
+            phoneNumber: this.phoneNumber,
+          })
+          .then((response) => response.data)
+          .then((data) => {
+            if (!data) {
+              alert("Sikertelen regisztráció!");
             } else {
-                axios.post("http://localhost:8080/api/auth/register-employer", {
-                    company: this.company, 
-                    name: this.name, 
-                    email: this.email, 
-                    password: this.password, 
-                    settlement: this.settlement, 
-                    phoneNumber: this.phoneNumber
-                })
-                .then(response => response.data)
-                .then(data => {
-                    if(!data) {
-                        alert("Sikertelen regisztráció!");
-                    } else {
-                        sessionStorage.clear();
-                        sessionStorage.setItem("loggedIn", true);
-                        sessionStorage.setItem("type", true);
-                        sessionStorage.setItem("id", data.id);
-                        sessionStorage.setItem("name", data.name);
-                        sessionStorage.setItem("email", data.email);
-                        sessionStorage.setItem("phoneNumber", data.phoneNumber);
-                        sessionStorage.setItem("settlement", data.settlement);
-                        sessionStorage.setItem("company", data.company);
-                        sessionStorage.setItem("description", data.description);
-                        this.$router.push("/profile");
-                    }
-                });
+              sessionStorage.clear();
+              sessionStorage.setItem("loggedIn", true);
+              sessionStorage.setItem("type", true);
+              sessionStorage.setItem("id", data.id);
+              sessionStorage.setItem("name", data.name);
+              sessionStorage.setItem("email", data.email);
+              sessionStorage.setItem("phoneNumber", data.phoneNumber);
+              sessionStorage.setItem("settlement", data.settlement);
+              sessionStorage.setItem("company", data.company);
+              sessionStorage.setItem("description", data.description);
+              this.$router.push("/profile");
             }
-        }
-    }
-}
-
+          });
+      }
+    },
+  },
+};
 </script>

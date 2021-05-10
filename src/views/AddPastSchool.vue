@@ -1,19 +1,41 @@
 <template>
 
-    <div class="addpastschool">
+    <v-container class="addpastschool">
         <MainPageStructure title="Tanulmány hozzáadása">
-            <form v-on:submit.prevent @submit="saveSchool">
-                <label for="school">Iskola neve:</label><br>
-                <input v-model="school" name="school" type="text" placeholder="pl.: Türr István Gazdasági Szakgimnázium" required><br>
-                <label for="date">Mettől, meddig tanultál itt?:</label><br>
-                <input v-model="date" name="date" type="text" placeholder="pl.: 2016-2020" required><br>
-                <label for="education">Megszerzett képesítés:</label><br>
-                <input v-model="education" name="education" type="text" placeholder="pl.: Rendszergazda" required>
-                <br><br>
-                <div class="buttonwrapper"><button type="submit">Hozzáadás</button></div>
-            </form>
+            <v-card>
+                <v-card-text>
+                    <v-form>
+                        <v-text-field
+                            prepend-icon="mdi-domain"
+                            label="Iskola neve"
+                            v-model="school" 
+                            placeholder="pl.: Türr István Gazdasági Szakgimnázium" 
+                            required
+                        />
+                        <v-text-field 
+                            prepend-icon="mdi-calendar-range"
+                            label="Meddig tanultál itt?" 
+                            v-model="date" 
+                            placeholder="pl.: 2016-2020" 
+                            required
+                        />
+                        <v-text-field 
+                            prepend-icon="mdi-school-outline"
+                            label="Megszerzett képesítés"
+                            v-model="education" 
+                            placeholder="pl.: Rendszergazda" 
+                            required
+                        />
+                    </v-form>
+                </v-card-text>
+                <v-card-actions class="justify-center">
+                    <v-btn class="mainbutton" depressed width="50%" @click="saveSchool()">
+                        Hozzáadás
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
         </MainPageStructure>    
-    </div>
+    </v-container>
 
 </template>
 

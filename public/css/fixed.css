@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Inconsolata";
+    src: url(/fonts/Inconsolata.ttf) format("truetype");
+}
+
 html {
     height: 100%;
 }

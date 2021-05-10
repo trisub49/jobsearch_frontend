@@ -3,16 +3,26 @@
     <div class="showjob">
         <MainPageStructure title = "Álláshirdetés adatok">
             <JobView :showdesc="true" :job="job" />
-            <div v-if="job.employerId == userId && loggedIn && userType">
-                <button @click="$router.push({name: 'EditJob', params: {actualjob: job}})">Szerkesztés</button>
-                <button @click="deleteJob(actualjobId)">Törlés</button>
-            </div>
-            <div v-if="!userType && loggedIn">
-                <div class="buttonwrapper">
-                    <button v-if="!registered" @click="addRegistry()">Jelentkezés</button>
-                    <button v-else @click="deleteRegistry()">Jelentkezés visszavonása</button>
-                </div>
-            </div>
+            <v-container v-if="job.employerId == userId && loggedIn && userType">
+                <v-btn class="mainbutton" depressed @click="$router.push({name: 'EditJob', params: {actualjob: job}})" width="50%">
+                    <v-icon>mdi-pencil-outline</v-icon>
+                    Szerkesztés
+                </v-btn>
+                <v-btn class="mainbutton" depressed @click="deleteJob(actualjobId)" width="50%">
+                    <v-icon>mdi-delete-outline</v-icon>
+                    Törlés
+                </v-btn>
+            </v-container>
+            <v-container v-if="!userType && loggedIn" class="text-center">
+                <v-btn class="mainbutton" depressed v-if="!registered" @click="addRegistry()" width="50%">
+                    <v-icon>mdi-hand</v-icon>
+                    Jelentkezés
+                </v-btn>
+                <v-btn class="mainbutton" depressed v-else @click="deleteRegistry()" width="50%">
+                    <v-icon>mdi-backup-restore</v-icon>
+                    Jelentkezés visszavonása
+                </v-btn>
+            </v-container>
         </MainPageStructure>
     </div>
 

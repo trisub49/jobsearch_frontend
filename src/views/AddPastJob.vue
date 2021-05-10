@@ -1,19 +1,41 @@
 <template>
 
-    <div class="addpastjob">
+    <v-container class="addpastjob">
         <MainPageStructure title="Munkatapasztalat hozzáadása">
-            <form v-on:submit.prevent @submit="saveJob">
-                <label for="company">Munkahely/cég neve:</label><br>
-                <input v-model="company" name="company" type="text" placeholder="pl.: Türr István Gazdasági Szakgimnázium" required><br>
-                <label for="date">Mettől, meddig dolgoztál itt?:</label><br>
-                <input v-model="date" name="date" type="text" placeholder="pl.: 2016-2020" required><br>
-                <label for="scope">Betöltött munkakör:</label><br>
-                <input v-model="scope" name="scope" type="text" placeholder="pl.: Rendszergazda" required>
-                <br><br>
-                <div class="buttonwrapper"><button type="submit">Hozzáadás</button></div>
-            </form>
+            <v-card>
+                <v-card-text>
+                    <v-form>
+                        <v-text-field
+                            prepend-icon="mdi-account-tie"
+                            label="Munkahely/cég neve"
+                            v-model="company" 
+                            placeholder="pl.: Türr István Gazdasági Szakgimnázium" 
+                            required
+                        />
+                        <v-text-field 
+                            prepend-icon="mdi-calendar-range"
+                            label="Meddig dolgoztál itt?" 
+                            v-model="date" 
+                            placeholder="pl.: 2016-2020" 
+                            required
+                        />
+                        <v-text-field 
+                            prepend-icon="mdi-account-hard-hat"
+                            label="Betöltött munkakör"
+                            v-model="scope" 
+                            placeholder="pl.: Rendszergazda" 
+                            required
+                        />
+                    </v-form>
+                </v-card-text>
+                <v-card-actions class="justify-center">
+                    <v-btn class="mainbutton" depressed width="50%" @click="saveJob()">
+                        Hozzáadás
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
         </MainPageStructure>    
-    </div>
+    </v-container>
 
 </template>
 

@@ -2,11 +2,13 @@
 
     <div class="register">
         <MainPageStructure title="Regisztráció">
-            <button id="first" @click=clickedToType(false)>Álláskeresőként</button>
-            <button id="second" @click=clickedToType(true)>Munkaadóként</button>
-            <br><br><hr>
-            <div v-if="!asEmployer"> <RegisterEmployee /> </div>
-            <div v-else> <RegisterEmployer /> </div>
+            <v-container>
+                <button id="first" @click=clickedToType(false)>Álláskeresőként</button>
+                <button id="second" @click=clickedToType(true)>Munkaadóként</button>
+                <v-spacer />
+            </v-container>
+            <v-container v-if="!asEmployer"> <RegisterEmployee /> </v-container>
+            <v-container v-else> <RegisterEmployer /> </v-container>
         </MainPageStructure>
     </div>
 

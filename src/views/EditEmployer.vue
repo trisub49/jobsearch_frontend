@@ -2,20 +2,44 @@
 
     <div class="editemployer">
         <MainPageStructure title="Adatmódosítás">
-            <form v-on:submit.prevent>
-                <label for="company">Cégnév:</label><br>
-                <input v-model="company" name="company" type="text" required><br>
-                <label for="name">Saját név:</label><br>
-                <input v-model="name" name="name" type="text" required><br>
-                <label for="settlement">Telephely:</label><br>
-                <input v-model="settlement" name="settlement" type="search" required><br>
-                <label for="phoneNumber">Telefonszám:</label><br>
-                <input v-model="phoneNumber" name="phoneNumber" type="tel" required><br>
-                <label for="description">Leírás a cégről:</label>
-                <textarea v-model="description" id="description" name="description" maxlength="1024"></textarea>
-                <br><br>
-                <div class="buttonwrapper"><button @click="editProfile">Megváltoztat</button></div><br>
-            </form>
+            <v-card>
+                <v-card-text>
+                    <v-form>
+                        <v-text-field 
+                            label="Cégnév"
+                            v-model="company" 
+                            required 
+                        />
+                        <v-text-field
+                            label="Teljes név" 
+                            v-model="name" 
+                            required
+                        />
+                        <v-text-field 
+                            label="Telephely"
+                            v-model="settlement" 
+                            type="search" 
+                            required
+                        />
+                        <v-text-field 
+                            label="Telefonszám"
+                            v-model="phoneNumber" 
+                            required
+                        />
+                        <v-textarea 
+                            label="Leírás a cégről"
+                            v-model="description"
+                            maxlength="1024"
+                            counter
+                        />
+                    </v-form>
+                </v-card-text>
+                <v-card-actions class="justify-center">
+                    <v-btn class="mainbutton" depressed width="50%" @click="editProfile()">
+                        Megváltoztat
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
         </MainPageStructure>
     </div>
 

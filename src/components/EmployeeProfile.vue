@@ -14,18 +14,37 @@
                     <tr><td class="dataname">Telefonszám:</td><td class="datavalue">{{employee.phoneNumber}}</td></tr>
                 </table>
             </div>
-            <div id="profileactions">
-                <div v-if="employee.picture != null" id="pictureaction">
-                    <button @click="deletePicture">Kép törlése</button>
-                </div>
-                <div v-else id="pictureaction">
-                    <input type="file" accept="image/png, image/jpeg" @change="onFileSelected" />
-                    <button v-if="selectedFile != null" @click="onFileUpload">Feltöltés</button>
-                </div>
-                <div id="profileedit">
-                    <button class @click="$router.push('/profile/editemployee')">Szerkesztés</button>
-                </div>
-            </div>
+            <v-row id="profileactions">
+                <v-col v-if="employee.picture != null" id="pictureaction">
+                    <v-btn class="mainbutton" @click="deletePicture" small depressed>
+                    <v-icon>mdi-delete-outline</v-icon>
+                    Kép törlése
+                </v-btn>
+                </v-col>
+                <v-col v-else id="pictureaction">
+                <v-file-input
+                    prepend-icon="mdi-camera"
+                    accept="image/png, image/jpeg" 
+                    dense
+                    flat
+                    show-size
+                    v-model="selectedFile"
+                >
+                </v-file-input>
+                </v-col>
+                <v-col>
+                    <v-btn v-if="selectedFile != null" class="mainbutton" @click="onFileUpload" small depressed>
+                        <v-icon>mdi-cloud-upload-outline</v-icon>
+                         Feltöltés
+                    </v-btn>
+                </v-col>
+                <v-col id="profileedit">
+                    <v-btn class="mainbutton" small depressed @click="$router.push('/profile/editemployee')">
+                        <v-icon>mdi-account-edit-outline</v-icon>
+                        Szerkesztés
+                    </v-btn>
+                </v-col>
+            </v-row>
             <div id="jobsandschools"><PastJobsAndSchools /></div>
         </div>
     </div>
@@ -34,30 +53,12 @@
 
 <style scoped>
 
-button {
-    width: 110px;
-    margin-top: 10px;
-    padding: 0;
-    padding-left: 3px;
-    padding-right: 3px;
-    font-size: small;
-}
-input {
-    border: none;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 0;
-    font-size: small;
-    font-weight: bold;
-}
 #profilemain {
     background-color: white;
-    font-weight: bold;
-    font-size: small;
     border: 0.5px solid rgba(0,0,0,0.3);
     padding: 10px;
     margin-bottom: 15px;
-    line-height: 200%;
+    line-height: 180%;
     border-radius: 2px 2px;
 }
 #profilehead {
@@ -87,18 +88,26 @@ table {
     width: 100%;
 }
 #profileactions {
-    clear: both;
+	clear: both;
+	padding: 0;
+  width: 100%;
+}
+#pictureaction {
+	float: left;
+	width: 33%;
+}
+#pictureupload {
+	float: center;
+	text-align: center;
+	width: 33%;
+}
+#profileedit {
+  float: right;
+	text-align: right;
+	width: 34%;
 }
 #jobsandschools {
     clear: both;
-}
-#profileedit {
-    float: right;
-    width: 30%;
-}
-#pictureaction {
-    float: left;
-    width: 70%;
 }
 
 </style>

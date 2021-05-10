@@ -4,13 +4,23 @@
         <div v-if='loggedIn == true && userType == true'>
             <MainPageStructure title="Álláshirdetői profil">
                 <EmployerProfile></EmployerProfile>
-                <div class="buttonwrapper"><button v-on:click="logout">Kijelentkezés</button></div>
+                <v-container class="text-center">
+                    <v-btn class="mainbutton" depressed v-on:click="logout" width="50%">
+                        Kijelentkezés
+                        <v-icon>mdi-logout</v-icon>
+                    </v-btn>
+                </v-container>
             </MainPageStructure>
         </div>
         <div v-else-if='loggedIn == true && userType == false'>
             <MainPageStructure title="Álláskeresői profil">
                 <EmployeeProfile></EmployeeProfile>
-                <div class="buttonwrapper"><button v-on:click="logout">Kijelentkezés</button></div>
+                <v-container class="text-center">
+                    <v-btn class="mainbutton" depressed v-on:click="logout" width="50%">
+                        Kijelentkezés
+                        <v-icon>mdi-logout</v-icon>
+                    </v-btn>
+                </v-container>
             </MainPageStructure>
         </div>
         <div v-else><Login /></div>

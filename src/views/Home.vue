@@ -10,15 +10,15 @@
 
 <script>
 
-import MainPageStructure from '@/components/MainPageStructure.vue';
 import JobView from '@/components/JobView.vue';
+import MainPageStructure from '@/components/MainPageStructure.vue';
 import axios from 'axios'
 
 export default {
 
   components: {
-    MainPageStructure,
-    JobView
+    JobView,
+    MainPageStructure
   },
 
   data() {
