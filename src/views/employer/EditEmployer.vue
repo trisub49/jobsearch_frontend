@@ -1,7 +1,7 @@
 <template>
 
     <div class="editemployer">
-        <MainPageStructure title="Adatmódosítás">
+        <PageStructure title="Adatmódosítás">
             <v-card>
                 <v-card-text>
                     <v-form>
@@ -40,7 +40,7 @@
                     </v-btn>
                 </v-card-actions>
             </v-card>
-        </MainPageStructure>
+        </PageStructure>
     </div>
 
 </template>
@@ -60,12 +60,12 @@ textarea {
 <script>
 
 import axios from 'axios';
-import MainPageStructure from "@/components/MainPageStructure.vue";
+import PageStructure from "@/components/main/PageStructure.vue";
 
 export default {
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     data() {

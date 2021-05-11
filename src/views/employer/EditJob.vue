@@ -1,28 +1,28 @@
 <template>
-  <v-container class="addjob">
-    <MainPageStructure title="Hirdetés feladása">
+  <v-container class="editjob">
+    <PageStructure title="Hirdetés szerkesztése">
       <v-container id="card" class="justify-center">
         <v-card>
           <v-card-text>
             <v-form>
-              <v-text-field
+              <v-text-field 
                 prepend-icon="mdi-account-hard-hat"
-                label="Munkakör"
-                v-model="scope"
-                required
+                label="Munkakör" 
+                v-model="job.scope" 
+                required 
               />
               <CategoryList />
               <v-text-field
                 prepend-icon="mdi-animation-outline"
                 label="Kategória"
-                v-model="category"
+                v-model="job.category"
                 list="categorylist"
                 required
               />
               <v-textarea
                 prepend-icon="mdi-information-outline"
                 label="Információ a munkáról"
-                v-model="adText"
+                v-model="job.adText"
                 maxlength="1024"
                 counter
                 required
@@ -31,7 +31,7 @@
               <v-text-field
                 prepend-icon="mdi-map-marker"
                 label="Munkavégzés helye"
-                v-model="settlement"
+                v-model="job.settlement"
                 list="settlementlist"
                 required
               />
@@ -44,7 +44,7 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="deadline"
+                    v-model="job.deadline"
                     label="Jelentkezési határidő"
                     prepend-icon="mdi-calendar"
                     readonly
@@ -54,20 +54,18 @@
                 </template>
                 <v-date-picker
                   ref="picker"
-                  v-model="deadline"
+                  v-model="job.deadline"
                   :min="new Date().toISOString().substr(0, 10)"
                 />
               </v-menu>
             </v-form>
           </v-card-text>
           <v-card-actions class="justify-center">
-            <v-btn class="mainbutton" depressed @click="addJob()" width="50%">
-              Kész
-            </v-btn>
+            <v-btn class="mainbutton" depressed @click="editJob()" width="50%"> Kész </v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
-    </MainPageStructure>
+    </PageStructure>
   </v-container>
 </template>
 
@@ -75,45 +73,43 @@
 #card {
   max-width: 640px;
 }
-
 </style>
 
 <script>
-import MainPageStructure from "@/components/MainPageStructure.vue";
-import CategoryList from "@/components/CategoryList.vue";
-import SettlementList from "@/components/SettlementList.vue";
+import PageStructure from "@/components/main/PageStructure.vue";
+import CategoryList from "@/components/common/CategoryList.vue";
+import SettlementList from "@/components/common/SettlementList.vue";
 import axios from "axios";
 
 export default {
   components: {
-    MainPageStructure,
+    PageStructure,
     CategoryList,
     SettlementList,
   },
 
+  props: ["actualjob"],
+
   data() {
     return {
-      scope: "",
-      category: "",
-      adText: "",
-      settlement: "",
-      deadline: "",
+      job: this.actualjob,
     };
   },
 
   methods: {
-    addJob() {
+    editJob() {
       axios
-        .post("http://localhost:8080/api/job/save", {
-          adText: this.adText,
-          category: this.category,
-          deadline: this.deadline,
-          scope: this.scope,
-          settlement: this.settlement,
+        .post("http://localhost:8080/api/job/edit", {
+          adText: this.job.adText,
+          category: this.job.category,
+          deadline: this.job.deadline,
+          scope: this.job.scope,
+          settlement: this.job.settlement,
           employerId: sessionStorage.getItem("id"),
+          id: this.job.id,
         })
         .then((response) => {
-          if (response.status == 201) {
+          if (response.status == 200) {
             this.$router.push("/myjobs");
           }
         })

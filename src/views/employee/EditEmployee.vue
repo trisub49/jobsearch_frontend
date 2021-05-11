@@ -1,7 +1,7 @@
 <template>
     
     <div class="editemployee">
-        <MainPageStructure title="Adatmódosítás">
+        <PageStructure title="Adatmódosítás">
             <form v-on:submit.prevent>
                 <label for="name">Saját név:</label><br>
                 <input v-model="name" name="name" type="text" required><br>
@@ -12,7 +12,7 @@
                 <br><br>
                 <div class="buttonwrapper"><button @click="editProfile()">Megváltoztat</button></div><br>
             </form>
-        </MainPageStructure>
+        </PageStructure>
     </div>
 
 </template>
@@ -20,12 +20,12 @@
 <script>
 
 import axios from 'axios';
-import MainPageStructure from "@/components/MainPageStructure.vue"
+import PageStructure from "@/components/main/PageStructure.vue"
 
 export default {
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     data() {

@@ -1,7 +1,7 @@
 <template>
 
     <div class="showemployee">
-        <MainPageStructure title = "Jelentkező">
+        <PageStructure title = "Jelentkező">
             <div id="profilemain">
                 <div id="profilehead">
                     <img v-if="hasPicture" id="profilepic" src="img/jobseeker.jpg" alt="Saját kép">
@@ -40,7 +40,7 @@
 
             <button @click="setStatus(actualEmployee.id, 1)">Interjúra hív</button>
             <button @click="setStatus(actualEmployee.id, 2)">Elutasít</button>
-        </MainPageStructure>
+        </PageStructure>
     </div>
 
 </template>
@@ -129,7 +129,7 @@ table {
 
 <script>
 
-import MainPageStructure from '@/components/MainPageStructure.vue'
+import PageStructure from '@/components/main/PageStructure.vue'
 import axios from 'axios';
 
 export default {
@@ -141,7 +141,7 @@ export default {
     ],
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     created() {

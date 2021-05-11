@@ -2,7 +2,7 @@
 
     <div class="profile">
         <div v-if='loggedIn == true && userType == true'>
-            <MainPageStructure title="Álláshirdetői profil">
+            <PageStructure title="Álláshirdetői profil">
                 <EmployerProfile></EmployerProfile>
                 <v-container class="text-center">
                     <v-btn class="mainbutton" depressed v-on:click="logout" width="50%">
@@ -10,10 +10,10 @@
                         <v-icon>mdi-logout</v-icon>
                     </v-btn>
                 </v-container>
-            </MainPageStructure>
+            </PageStructure>
         </div>
         <div v-else-if='loggedIn == true && userType == false'>
-            <MainPageStructure title="Álláskeresői profil">
+            <PageStructure title="Álláskeresői profil">
                 <EmployeeProfile></EmployeeProfile>
                 <v-container class="text-center">
                     <v-btn class="mainbutton" depressed v-on:click="logout" width="50%">
@@ -21,7 +21,7 @@
                         <v-icon>mdi-logout</v-icon>
                     </v-btn>
                 </v-container>
-            </MainPageStructure>
+            </PageStructure>
         </div>
         <div v-else><Login /></div>
     </div>
@@ -30,10 +30,10 @@
 
 <script>
 
-    import Login from "@/components/Login.vue";
-    import MainPageStructure from '@/components/MainPageStructure.vue'
-    import EmployeeProfile from '@/components/EmployeeProfile.vue'
-    import EmployerProfile from '@/components/EmployerProfile.vue'
+    import Login from "@/components/common/Login.vue";
+    import PageStructure from '@/components/main/PageStructure.vue'
+    import EmployeeProfile from '@/components/employee/EmployeeProfile.vue'
+    import EmployerProfile from '@/components/employer/EmployerProfile.vue'
 
     export default {
         name: 'profile',
@@ -52,7 +52,7 @@
         },
         components: {
             Login,
-            MainPageStructure,
+            PageStructure,
             EmployeeProfile,
             EmployerProfile
         },

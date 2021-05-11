@@ -115,7 +115,7 @@ table {
 <script>
 
 import axios from 'axios'
-import PastJobsAndSchools from '@/components/PastJobsAndSchools.vue'
+import PastJobsAndSchools from '@/components/employee/PastJobsAndSchools.vue'
 
 export default {
 

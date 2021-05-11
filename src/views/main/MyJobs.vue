@@ -1,6 +1,6 @@
 <template>
     <v-container class="myjobs">
-        <MainPageStructure title="Hirdetéseid">
+        <PageStructure title="Hirdetéseid">
             <v-container id="background">
                 <v-container v-if="!jobs.length" id="joblister">Nincs feladott hirdetésed.</v-container>
                 <v-container v-else id="joblister">
@@ -14,7 +14,7 @@
             <v-container class="text-center">
                 <v-btn class="mainbutton" depressed @click="$router.push('/myjobs/add')">Hirdetésfeladás</v-btn>
             </v-container>
-        </MainPageStructure>
+        </PageStructure>
     </v-container>     
 </template>
 
@@ -56,13 +56,13 @@ th {
 
 <script>
 
-import MainPageStructure from '@/components/MainPageStructure.vue'
+import PageStructure from '@/components/main/PageStructure.vue'
 import axios from 'axios';
 
 export default {
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     data() {

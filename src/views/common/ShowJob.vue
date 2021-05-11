@@ -1,7 +1,7 @@
 <template>
     
     <div class="showjob">
-        <MainPageStructure title = "Álláshirdetés adatok">
+        <PageStructure title = "Álláshirdetés adatok">
             <JobView :showdesc="true" :job="job" />
             <v-container v-if="job.employerId == userId && loggedIn && userType">
                 <v-btn class="mainbutton" depressed @click="$router.push({name: 'EditJob', params: {actualjob: job}})" width="50%">
@@ -23,7 +23,7 @@
                     Jelentkezés visszavonása
                 </v-btn>
             </v-container>
-        </MainPageStructure>
+        </PageStructure>
     </div>
 
 </template>
@@ -31,8 +31,8 @@
 <script>
 
 import axios from 'axios';
-import MainPageStructure from '@/components/MainPageStructure.vue'
-import JobView from '@/components/JobView.vue'
+import PageStructure from '@/components/main/PageStructure.vue'
+import JobView from '@/components/common/JobView.vue'
 
 export default {
     
@@ -43,7 +43,7 @@ export default {
     ],
 
     components: {
-        MainPageStructure,
+        PageStructure,
         JobView
     },
 

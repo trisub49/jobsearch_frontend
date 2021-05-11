@@ -1,40 +1,40 @@
 <template>
 
-    <v-container class="addpastschool">
-        <MainPageStructure title="Tanulmány hozzáadása">
+    <v-container class="addpastjob">
+        <PageStructure title="Munkatapasztalat hozzáadása">
             <v-card>
                 <v-card-text>
                     <v-form>
                         <v-text-field
-                            prepend-icon="mdi-domain"
-                            label="Iskola neve"
-                            v-model="school" 
+                            prepend-icon="mdi-account-tie"
+                            label="Munkahely/cég neve"
+                            v-model="company" 
                             placeholder="pl.: Türr István Gazdasági Szakgimnázium" 
                             required
                         />
                         <v-text-field 
                             prepend-icon="mdi-calendar-range"
-                            label="Meddig tanultál itt?" 
+                            label="Meddig dolgoztál itt?" 
                             v-model="date" 
                             placeholder="pl.: 2016-2020" 
                             required
                         />
                         <v-text-field 
-                            prepend-icon="mdi-school-outline"
-                            label="Megszerzett képesítés"
-                            v-model="education" 
+                            prepend-icon="mdi-account-hard-hat"
+                            label="Betöltött munkakör"
+                            v-model="scope" 
                             placeholder="pl.: Rendszergazda" 
                             required
                         />
                     </v-form>
                 </v-card-text>
                 <v-card-actions class="justify-center">
-                    <v-btn class="mainbutton" depressed width="50%" @click="saveSchool()">
+                    <v-btn class="mainbutton" depressed width="50%" @click="saveJob()">
                         Hozzáadás
                     </v-btn>
                 </v-card-actions>
             </v-card>
-        </MainPageStructure>    
+        </PageStructure>    
     </v-container>
 
 </template>
@@ -42,29 +42,29 @@
 <script>
 
 import axios from 'axios';
-import MainPageStructure from '@/components/MainPageStructure.vue';
+import PageStructure from '@/components/main/PageStructure.vue';
 
 export default {
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     data() {
         return {
-            school: '',
+            company: '',
             date: '',
-            education: ''
+            scope: ''
         }
     },
 
     methods: {
-        saveSchool() {
-            axios.post('http://localhost:8080/api/info/add/school', {
+        saveJob() {
+            axios.post('http://localhost:8080/api/info/add/job', {
                 employeeId: sessionStorage.getItem('id'), 
-                school: this.school, 
+                job: this.company, 
                 date: this.date, 
-                education: this.education
+                scope: this.scope
             })
             .then(response => {
                 if(response.status == 201) {

@@ -1,7 +1,7 @@
 <template>
 
    <div class="showregistries">
-       <MainPageStructure title = "Jelentkezők">
+       <PageStructure title = "Jelentkezők">
             <a v-for="registry in registries" :key="registry.id" @click="showEmployee(registry)">
                 <div class="employees">
                     <div class="profilepicwrapper">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </a>
-        </MainPageStructure>
+        </PageStructure>
     </div>
 
 </template>
@@ -51,12 +51,12 @@ a :focus {
 
 <script>
 
-import MainPageStructure from '@/components/MainPageStructure.vue'
+import PageStructure from '@/components/main/PageStructure.vue'
 
 export default {
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     props: [ 

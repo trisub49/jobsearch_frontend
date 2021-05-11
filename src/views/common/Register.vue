@@ -1,7 +1,7 @@
 <template>
 
     <div class="register">
-        <MainPageStructure title="Regisztráció">
+        <PageStructure title="Regisztráció">
             <v-container>
                 <button id="first" @click=clickedToType(false)>Álláskeresőként</button>
                 <button id="second" @click=clickedToType(true)>Munkaadóként</button>
@@ -9,7 +9,7 @@
             </v-container>
             <v-container v-if="!asEmployer"> <RegisterEmployee /> </v-container>
             <v-container v-else> <RegisterEmployer /> </v-container>
-        </MainPageStructure>
+        </PageStructure>
     </div>
 
 </template>
@@ -46,13 +46,13 @@ button:focus {
 
 <script>
 
-import MainPageStructure from '@/components/MainPageStructure.vue'
-import RegisterEmployee from '@/components/RegisterEmployee.vue'
-import RegisterEmployer from '@/components/RegisterEmployer.vue'
+import PageStructure from '@/components/main/PageStructure.vue'
+import RegisterEmployee from '@/components/employee/RegisterEmployee.vue'
+import RegisterEmployer from '@/components/employer/RegisterEmployer.vue'
 
 export default {
     components: {
-        MainPageStructure,
+        PageStructure,
         RegisterEmployee,
         RegisterEmployer
     },

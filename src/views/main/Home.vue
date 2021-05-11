@@ -1,24 +1,24 @@
 <template>
 
   <v-container>
-    <MainPageStructure title="Legújabb állások">
+    <PageStructure title="Legújabb állások">
       <JobView v-for="jobToComponent in newJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
-    </MainPageStructure>
+    </PageStructure>
   </v-container>
 
 </template>
 
 <script>
 
-import JobView from '@/components/JobView.vue';
-import MainPageStructure from '@/components/MainPageStructure.vue';
+import JobView from '@/components/common/JobView.vue';
+import PageStructure from '@/components/main/PageStructure.vue';
 import axios from 'axios'
 
 export default {
 
   components: {
     JobView,
-    MainPageStructure
+    PageStructure
   },
 
   data() {

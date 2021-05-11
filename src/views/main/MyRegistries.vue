@@ -1,7 +1,7 @@
 <template>
 
     <div class="myregistries">
-        <MainPageStructure title="Jelentkezéseim">
+        <PageStructure title="Jelentkezéseim">
             <div id="background">
                 <span id="wait">Még visszaigazolásra vár:</span>
                 <div v-if="!getWaitingJobs().length" class="joblister">Ez a lista üres.</div>
@@ -25,7 +25,7 @@
                     </table>
                 </div>
             </div>    
-        </MainPageStructure>
+        </PageStructure>
     </div>
     
 </template>
@@ -80,7 +80,7 @@
 
 <script>
 
-import MainPageStructure from '@/components/MainPageStructure.vue'
+import PageStructure from '@/components/main/PageStructure.vue'
 import axios from 'axios';
 
 export default {
@@ -97,7 +97,7 @@ export default {
     },
 
     components: {
-        MainPageStructure
+        PageStructure
     },
 
     methods: {

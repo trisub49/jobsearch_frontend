@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <MainPageStructure title="Bejelentkezés">
+    <PageStructure title="Bejelentkezés">
       <v-container class="justify-center" id="card">
         <v-card>
           <v-card-text>
@@ -34,7 +34,7 @@
           </v-card-actions>
         </v-card>
       </v-container>
-    </MainPageStructure>
+    </PageStructure>
   </div>
 </template>
 
@@ -46,13 +46,13 @@
 
 <script>
 import axios from "axios";
-import MainPageStructure from "@/components/MainPageStructure.vue";
+import PageStructure from "@/components/main/PageStructure.vue";
 
 export default {
   name: "login",
 
   components: {
-    MainPageStructure,
+    PageStructure,
   },
 
   data() {

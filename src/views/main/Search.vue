@@ -1,6 +1,6 @@
 <template>
   <v-container class="search">
-    <MainPageStructure title="Keresés">
+    <PageStructure title="Keresés">
       <v-container id="exp" class="justify-center">
         <v-expansion-panels v-model="panel" multiple>
           <v-expansion-panel expand :readonly="searchState != 2">
@@ -59,7 +59,7 @@
         <v-spacer />
         <JobView v-for="jobToComponent in foundJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
       </v-container>
-    </MainPageStructure>
+    </PageStructure>
   </v-container>
 </template>
 
@@ -77,14 +77,14 @@
 
 <script>
 import axios from 'axios';
-import MainPageStructure from '@/components/MainPageStructure.vue';
-import JobView from '@/components/JobView.vue';
-import CategoryList from '@/components/CategoryList.vue';
-import SettlementList from '@/components/SettlementList.vue';
+import PageStructure from '@/components/main/PageStructure.vue';
+import JobView from '@/components/common/JobView.vue';
+import CategoryList from '@/components/common/CategoryList.vue';
+import SettlementList from '@/components/common/SettlementList.vue';
 
 export default {
   components: {
-    MainPageStructure,
+    PageStructure,
     JobView,
     CategoryList,
     SettlementList

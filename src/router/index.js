@@ -1,21 +1,29 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 
-import Home from "../views/Home.vue"
-import Search from "../views/Search.vue"
-import Profile from "../views/Profile.vue"
-import AddPastSchool from "../views/AddPastSchool.vue"
-import AddPastJob from "../views/AddPastJob.vue"
-import EditEmployee from "../views/EditEmployee.vue"
-import EditEmployer from "../views/EditEmployer.vue"
-import Register from "../views/Register.vue"
-import MyJobs from "../views/MyJobs.vue"
-import AddNewJob from "../views/AddNewJob.vue"
-import MyRegistries from "../views/MyRegistries.vue"
-import ShowJob from "../views/ShowJob.vue"
-import EditJob from "../views/EditJob.vue"
-import ShowRegistries from "../views/ShowRegistries.vue"
-import ShowEmployee from "../views/ShowEmployee.vue"
+// main folder
+import Home from "@/views/main/Home.vue"
+import Search from "@/views/main/Search.vue"
+import Profile from "@/views/main/Profile.vue"
+import MyJobs from "@/views/main/MyJobs.vue"
+import MyRegistries from "@/views/main/MyRegistries.vue"
+
+// employer views
+import AddNewJob from "@/views/employer/AddNewJob.vue"
+import EditJob from "@/views/employer/EditJob.vue"
+import ShowRegistries from "@/views/employer/ShowRegistries.vue"
+import ShowEmployee from "@/views/employer/ShowEmployee.vue"
+import EditEmployer from "@/views/employer/EditEmployer.vue"
+
+// employee views
+import AddPastSchool from "@/views/employee/AddPastSchool.vue"
+import AddPastJob from "@/views/employee/AddPastJob.vue"
+import EditEmployee from "@/views/employee/EditEmployee.vue"
+
+// common views
+import Register from "@/views/common/Register.vue"
+import ShowJob from "@/views/common/ShowJob.vue"
+
 
 Vue.use(VueRouter);
 
