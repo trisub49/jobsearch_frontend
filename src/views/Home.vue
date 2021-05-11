@@ -1,10 +1,10 @@
 <template>
 
-  <div class="home">
+  <v-container>
     <MainPageStructure title="Legújabb állások">
       <JobView v-for="jobToComponent in newJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
     </MainPageStructure>
-  </div>
+  </v-container>
 
 </template>
 

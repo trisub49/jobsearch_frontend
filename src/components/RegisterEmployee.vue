@@ -1,5 +1,5 @@
 <template>
-  <div class="registeremployee">
+  <v-container id="registeremployee" class="justify-center">
 		<v-card color="whitesmoke">
 			<v-card-title>
 				<h4>Regisztráció álláskeresőként</h4>
@@ -70,11 +70,14 @@
 				<v-btn width="50%" class="mainbutton" color="success" @click="inspection()">Regisztráció</v-btn>
 			</v-card-actions>
 		</v-card>
-  </div>
+  </v-container>
 </template>
 
 <style scoped>
 
+#registeremployee {
+	max-width: 640px;
+}
 .v-card {
 	margin-top: 20px;
 }

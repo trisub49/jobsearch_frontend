@@ -1,5 +1,5 @@
 <template>
-  <div class="registeremployer">
+  <v-container id="registeremployer" class="justify-center">
     <v-card>
       <v-card-title>
         <h4>Regisztráció munkaadóként</h4>
@@ -70,12 +70,15 @@
         >
       </v-card-actions>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <style scoped>
+#registeremployer {
+  max-width: 640px;
+}
 .v-card {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 </style>
 

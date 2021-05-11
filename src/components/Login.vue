@@ -1,46 +1,46 @@
 <template>
   <div class="login">
     <MainPageStructure title="Bejelentkezés">
-      <v-card raised>
-        <v-card-text>
-          <v-form id="loginform" v-on:submit.prevent>
-            <v-text-field
-              prepend-icon="mdi-at"
-              label="Email cím"
-              v-model="email"
-              placeholder="valami@valami.com"
-            />
-            <v-text-field
-              prepend-icon="mdi-lock"
-              append-icon="mdi-eye-off"
-              label="Jelszó"
-              :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-              v-model="password"
-              placeholder="********"
-            />
-            <v-checkbox 
-                label="Bejelentkezés mint munkaadó"
-                v-model="type"
-            />
-            <v-divider />
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn width="40%" class="mainbutton" color="info" @click="authenticate()">Bejelentkezés</v-btn>
-          <v-spacer />
-          <v-btn width="40%" class="mainbutton" color="success" @click="$router.push('/profile/register')">Regisztráció</v-btn>
-        </v-card-actions>
-      </v-card>
+      <v-container class="justify-center" id="card">
+        <v-card>
+          <v-card-text>
+            <v-form id="loginform" v-on:submit.prevent>
+              <v-text-field
+                prepend-icon="mdi-at"
+                label="Email cím"
+                v-model="email"
+                placeholder="valami@valami.com"
+              />
+              <v-text-field
+                prepend-icon="mdi-lock"
+                append-icon="mdi-eye-off"
+                label="Jelszó"
+                :type="showPassword ? 'text' : 'password'"
+                @click:append="showPassword = !showPassword"
+                v-model="password"
+                placeholder="********"
+              />
+              <v-checkbox 
+                  label="Bejelentkezés mint munkaadó"
+                  v-model="type"
+              />
+              <v-divider />
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn width="40%" class="mainbutton" color="info" @click="authenticate()">Bejelentkezés</v-btn>
+            <v-spacer />
+            <v-btn width="40%" class="mainbutton" color="success" @click="$router.push('/profile/register')">Regisztráció</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-container>
     </MainPageStructure>
   </div>
 </template>
 
 <style scoped>
-input[type="checkbox"] {
-  border: 0.5px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px 3px;
-  margin-left: 20px;
+#card {
+  max-width: 640px;
 }
 </style>
 

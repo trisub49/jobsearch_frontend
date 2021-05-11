@@ -12,7 +12,6 @@ import Register from "../views/Register.vue"
 import MyJobs from "../views/MyJobs.vue"
 import AddNewJob from "../views/AddNewJob.vue"
 import MyRegistries from "../views/MyRegistries.vue"
-import FoundJobs from "../views/FoundJobs.vue"
 import ShowJob from "../views/ShowJob.vue"
 import EditJob from "../views/EditJob.vue"
 import ShowRegistries from "../views/ShowRegistries.vue"
@@ -30,11 +29,6 @@ const routes = [
     path: "/search",
     name: "Search",
     component: Search,
-  },
-  {
-    path: "/search/:postcode/:category/:scope",
-    name: "FoundJobs",
-    component: FoundJobs
   },
   {
     path: "/showjob",
