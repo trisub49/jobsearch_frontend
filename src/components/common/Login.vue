@@ -1,41 +1,46 @@
 <template>
-  <div class="login">
+  <v-container class="login">
     <PageStructure title="Bejelentkezés">
       <v-container class="justify-center" id="card">
         <v-card>
           <v-card-text>
-            <v-form id="loginform" v-on:submit.prevent>
+            <v-form>
               <v-text-field
                 prepend-icon="mdi-at"
                 label="Email cím"
                 v-model="email"
                 placeholder="valami@valami.com"
+                :error-messages="emailError ? 'Ez az e-mail cím nem szerepel az adatbázisban!' : ''"
+                @click="emailError = false"
               />
               <v-text-field
                 prepend-icon="mdi-lock"
                 append-icon="mdi-eye-off"
                 label="Jelszó"
-                :type="showPassword ? 'text' : 'password'"
-                @click:append="showPassword = !showPassword"
                 v-model="password"
                 placeholder="********"
+                :type="showPassword ? 'text' : 'password'"
+                :error-messages="passwordError ? 'A megadott jelszó hamis!' : ''"
+                @click="passwordError = false"
+                @click:append="showPassword = !showPassword"
               />
-              <v-checkbox 
-                  label="Bejelentkezés mint munkaadó"
-                  v-model="type"
-              />
+              <v-checkbox label="Bejelentkezés mint munkaadó" v-model="type" />
               <v-divider />
             </v-form>
           </v-card-text>
           <v-card-actions>
-            <v-btn width="40%" class="mainbutton" color="info" @click="authenticate()">Bejelentkezés</v-btn>
+            <v-btn width="40%" class="mainbutton" color="info" @click="authenticate()">
+              Bejelentkezés
+            </v-btn>
             <v-spacer />
-            <v-btn width="40%" class="mainbutton" color="success" @click="$router.push('/profile/register')">Regisztráció</v-btn>
+            <v-btn width="40%" class="mainbutton" color="success" @click="$router.push('/profile/register')">
+              Regisztráció
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
     </PageStructure>
-  </div>
+  </v-container>
 </template>
 
 <style scoped>
@@ -45,11 +50,10 @@
 </style>
 
 <script>
-import axios from "axios";
-import PageStructure from "@/components/main/PageStructure.vue";
+import axios from 'axios';
+import PageStructure from '@/components/main/PageStructure.vue';
 
 export default {
-  name: "login",
 
   components: {
     PageStructure,
@@ -60,8 +64,11 @@ export default {
       email: "",
       password: "",
       type: false,
-      showPassword: false
-    };
+      showPassword: false,
+
+      emailError: false,
+      passwordError: false
+    }
   },
 
   methods: {
@@ -75,27 +82,23 @@ export default {
       location.reload();
     },
     authenticate() {
-      axios
-        .post("http://localhost:8080/api/auth/login", {
+      axios.post(`${this.$store.state.domain}/auth/login`, {
           email: this.email,
           password: this.password,
           type: this.type,
-        })
-        .then((response) => response.data)
-        .then((data) => {
-          console.log(data);
-          if (data.id) {
-            this.fillStorage(data);
-          } else {
-            if (data.message == "not in database") {
-              alert("A megadott e-mail nincs az adatbázisban!");
-            } else if (data.message == "password not correct") {
-              alert("A megadott jelszó helytelen!");
-            }
+      })
+      .then(response => {
+        if (response.status == 200) {
+          this.fillStorage(response.data);
+        } else if(response.status == 203) {
+          if (response.data.message == "!registered") {
+            this.emailError = true;
+          } else if (response.data.message == "password") {
+            this.passwordError = true;
           }
-        })
-        .catch((error) => alert(error));
-    },
-  },
-};
+        }
+      });
+    }
+  }
+}
 </script>

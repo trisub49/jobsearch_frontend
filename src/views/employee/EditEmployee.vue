@@ -1,31 +1,45 @@
 <template>
-    
-    <div class="editemployee">
-        <PageStructure title="Adatmódosítás">
-            <form v-on:submit.prevent>
-                <label for="name">Saját név:</label><br>
-                <input v-model="name" name="name" type="text" required><br>
-                <label for="settlement">Lakhely (város):</label><br>
-                <input v-model="settlement" name="settlement" type="search" required><br>
-                <label for="phoneNumber">Telefonszám:</label><br>
-                <input v-model="phoneNumber" name="phoneNumber" type="tel" required><br>
-                <br><br>
-                <div class="buttonwrapper"><button @click="editProfile()">Megváltoztat</button></div><br>
-            </form>
-        </PageStructure>
-    </div>
-
+	<v-container class="editemployee">
+		<PageStructure title="Adatmódosítás">
+			<v-container class="justify-center" id="card">
+				<v-card>
+					<v-card-text>
+						<v-form>
+							<v-text-field label="Teljes név" v-model="name" prepend-icon="mdi-account-circle" required />
+							<SettlementList />
+							<v-text-field label="Lakhely" v-model="settlement" prepend-icon="mdi-map-marker" list="settlementlist" required />
+							<v-text-field label="Telefonszám" v-model="phoneNumber" prepend-icon="mdi-phone-outline" required />
+						</v-form>
+					</v-card-text>
+					<v-card-actions class="justify-center">
+						<v-btn class="mainbutton" depressed width="50%" @click="editProfile()">
+							Megváltoztat
+						</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-container>
+		</PageStructure>
+	</v-container>
 </template>
 
-<script>
+<style scoped>
 
+#card {
+    max-width: 640px;
+}
+
+</style>
+
+<script>
 import axios from 'axios';
-import PageStructure from "@/components/main/PageStructure.vue"
+import PageStructure from '@/components/main/PageStructure.vue';
+import SettlementList from '@/components/common/SettlementList.vue';
 
 export default {
 
     components: {
-        PageStructure
+        PageStructure,
+        SettlementList
     },
 
     data() {
@@ -38,7 +52,7 @@ export default {
 
     methods: {
         editProfile() {
-            axios.post('http://localhost:8080/api/auth/edit-employee', {
+            axios.post(`${this.$store.state.domain}/auth/edit-employee`, {
                 id: sessionStorage.getItem('id'), 
                 name: this.name, 
                 settlement: this.settlement, 
