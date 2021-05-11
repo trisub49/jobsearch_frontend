@@ -27,7 +27,7 @@
                     accept="image/png, image/jpeg" 
                     dense
                     flat
-                    show-size
+                    hide-input
                     v-model="selectedFile"
                 >
                 </v-file-input>

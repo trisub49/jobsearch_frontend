@@ -15,7 +15,7 @@
         <v-btn @click="$router.push('/profile/addschool')" icon small>
             <v-icon>mdi-plus-thick</v-icon>
         </v-btn>
-        <v-divider />
+        <v-spacer />
         <h3>Volt munkahelyek:</h3>
         <v-spacer />
         <v-container class="lists" v-if="jobs.length">

@@ -72,15 +72,16 @@
     font-size: large;
     padding: 10px;
     border-bottom: 0.5px solid rgba(0,0,0,0.6);
+    color: black;
 }
 .jobregtime {
     float: right;
 }
 .jobname {
-    color: rgb(51,102,187);
     text-transform: uppercase;
 }
 .jobbody {
+    color: black;
     margin: 15px;
     border-left: rgba(0,0,0,0.3);
     clear: both;
@@ -94,6 +95,7 @@
     padding-bottom: 5px;
 }
 .jobbla {
+    font-weight: normal;
     padding-right: 10px;
     text-align: left;
 }
@@ -122,9 +124,6 @@
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
-}
-button {
-    width: 33%;
 }
 
 </style>

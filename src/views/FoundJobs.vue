@@ -1,13 +1,12 @@
 <template>
-
     <div class="foundjobs">
         <MainPageStructure title="Találatok"> 
-            <div v-if="foundJobs.length > 0">
+            <v-container v-if="foundJobs.length > 0">
                 <JobView v-for="jobToComponent in foundJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
-            </div>
+            </v-container>
+            <v-container v-else> A megadott keresési feltételek alapján nincs találat! </v-container>
         </MainPageStructure>
     </div>
-
 </template>
 
 <script>

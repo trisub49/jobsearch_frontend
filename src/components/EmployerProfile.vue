@@ -6,10 +6,12 @@
             <v-row>
               <v-col id="image">
                 <v-img
+                  class="mx-auto"
                   v-if="employer.picture != null"
                   id="picture"
                   :src="loadedPicture"
                   alt="Saját kép"
+                  lazy-src
                 />
                 <v-img v-else id="picture" src="img/empty_user.jpg" alt="Saját kép" />
               </v-col>
@@ -45,10 +47,12 @@
                   <v-file-input
                     prepend-icon="mdi-camera"
                     accept="image/png, image/jpeg" 
+                    hide-details
                     dense
                     flat
                     show-size
                     v-model="selectedFile"
+                    hide-input
                   />
                 </v-col>
                 <v-col id="pictureupload">
@@ -93,8 +97,8 @@
 	width: 33%;
 }
 #pictureupload {
-	float: center;
-	text-align: center;
+	float: left;
+	text-align: left;
 	width: 33%;
 }
 #profileedit {
@@ -110,6 +114,13 @@
 #image {
   float: left;
   width: 60%;
+  border: 0.5px solid black;
+  display: table-cell;
+  text-align: center;
+}
+#picture {
+  width: 100%;
+  vertical-align: middle;
 }
 .dataname {
 	font-weight: bold;
