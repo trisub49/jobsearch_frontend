@@ -1,9 +1,6 @@
 <template>
-    <v-app-bar id="nav" fixed dense dark
-      :hide-on-scroll="true"
-      color="rgba(0, 0, 0, 0.75)"
-    >
-    <ul class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+	<v-app-bar id="nav" fixed dense dark color="rgba(0, 0, 0, 0.75)">
+		<ul class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
 			<li v-for="menu in menus" :key="menu.name">
 				<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon>{{menu.name}}</a>
 			</li>
@@ -13,11 +10,10 @@
 				<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon></a>
 			</li>
 		</ul>
-    </v-app-bar>
+	</v-app-bar>
 </template>
 
 <style scoped>
-
 .v-app-bar {
   font-family: "Inconsolata", monospace;
   text-transform: uppercase;
@@ -39,15 +35,10 @@ li :hover {
 .v-icon {
 	padding: 5px;
 }
-
 </style>
 
 <script>
-
 export default {
-    
-	name: 'NavBar',
-
 	data() {
 		return {
 			menus: [
@@ -59,23 +50,21 @@ export default {
 			]
 		}
 	},
+
 	methods: {
-	isEmployerAndLoggedIn() {
-		if (
-			sessionStorage.getItem("loggedIn") == "true" &&
-			sessionStorage.getItem("type") == "true"
-		)
-			return true;
-		return false;
-	},
-	isEmployeeAndLoggedIn() {
-		if (
-			sessionStorage.getItem("loggedIn") == "true" &&
-			sessionStorage.getItem("type") == "false"
-		)
-			return true;
-		return false;
-	}
+		isEmployerAndLoggedIn() {
+			if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("type") == "true") {
+				return true;
+			}
+			return false;
+		},
+		
+		isEmployeeAndLoggedIn() {
+			if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("type") == "false") {
+				return true;
+			}
+			return false;
+		}
 	}
 }
 

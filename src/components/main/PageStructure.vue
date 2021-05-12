@@ -42,12 +42,10 @@
   background-color: rgba(234, 234, 250, 0.9);
   border: 0.5px solid rgba(234, 234, 250, 0.3);
 }
-
 </style>
 
 <script>
 export default {
-  name: "mainpagestructure",
-  props: ["title"],
-};
+  props: ["title"]
+}
 </script>

@@ -1,40 +1,30 @@
 <template>
-
-    <div class="settlementlist">
-        <datalist id="settlementlist">
-            <option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
-        </datalist>
-    </div>
-
+	<v-container class="settlementlist">
+		<datalist id="settlementlist">
+			<option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
+		</datalist>
+	</v-container>
 </template>
 
 <script>
-
 import axios from 'axios';
 
 export default {
+	data() {
+		return {
+			settlements: []
+		}
+	},
 
-    data() {
-        return {
-            settlements: []
-        }
-    },
+	created() {
+		this.loadSettlements();
+	},
 
-    created() {
-        this.loadSettlements();
-    },
-
-    methods: {
-        loadSettlements() {
-            axios.get('http://localhost:8080/api/data/settlements')
-            .then(response => response.data)
-            .then(data => {
-                data.forEach(settlement => {
-                    this.settlements.push(settlement);
-                });
-            });
-        }
-    }
+	methods: {
+		loadSettlements() {
+			axios.get(`${this.$store.state.domain}/data/settlements`)
+			.then(response => this.settlements = response.data);
+		}
+	}
 }
-
 </script>

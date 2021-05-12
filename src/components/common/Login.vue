@@ -54,9 +54,8 @@ import axios from 'axios';
 import PageStructure from '@/components/main/PageStructure.vue';
 
 export default {
-
   components: {
-    PageStructure,
+    PageStructure
   },
 
   data() {
@@ -81,6 +80,7 @@ export default {
       sessionStorage.setItem("type", this.type);
       location.reload();
     },
+    
     authenticate() {
       axios.post(`${this.$store.state.domain}/auth/login`, {
           email: this.email,

@@ -6,8 +6,7 @@
             <v-row align="center" justify="space-around">
               <v-col id="image">
                 <v-img
-                  v-if="employer.picture != null"
-                  id="picture"
+                  v-if="employer.picture != null && employer.picture != '' && employer.picture != 'null'"
                   :src="loadedPicture"
                   alt="Cég logó"
                   lazy-src
@@ -36,11 +35,11 @@
           <v-card-actions>
             <v-container id="profileactions">
               <v-row>
-                  <v-col id="pictureaction" v-if="employer.picture != null">
-                    <v-btn class="mainbutton" @click="deletePicture" small depressed>
-                      <v-icon>mdi-delete-outline</v-icon>
-                      Kép törlése
-                    </v-btn>
+                <v-col id="pictureaction" v-if="employer.picture != null && employer.picture != '' && employer.picture != 'null'">
+                  <v-btn class="mainbutton" @click="deletePicture" small depressed>
+                    <v-icon>mdi-delete-outline</v-icon>
+                    Kép törlése
+                  </v-btn>
                 </v-col>
                 <v-col id="pictureaction" v-else>
                   <v-file-input
@@ -145,7 +144,6 @@
 import axios from "axios";
 
 export default {
-  name: "employerprofile",
 
   data() {
     return {
@@ -160,6 +158,7 @@ export default {
         picture: !sessionStorage.getItem("picture")
           ? null
           : sessionStorage.getItem("picture"),
+          pictureName: sessionStorage.getItem('pictureName')
       },
       selectedFile: null,
       loadedPicture: null,
@@ -168,61 +167,38 @@ export default {
 
   created() {
     if (this.employer.picture != null && this.employer.picture != "null") {
-      this.getEmployerPicture();
+      this.loadedPicture = "data:image/jpg;base64, " + this.employer.picture;
     }
   },
 
   methods: {
-    onFileSelected(event) {
-      this.selectedFile = event.target.files[0];
-    },
     onFileUpload() {
       const formData = new FormData();
       var id = sessionStorage.getItem("id");
       formData.append("image", this.selectedFile, this.selectedFile.name);
-      axios
-        .post(`http://localhost:8080/api/img/upload/employer/${id}`, formData)
-        .then((response) => {
-          if (response.status == 201) {
-            sessionStorage.setItem(
-              "picture",
-              id.concat("_").concat(this.selectedFile.name)
-            );
-            this.employer.picture = sessionStorage.getItem("picture");
-            this.getEmployerPicture();
-            this.selectedFile = null;
-          } else {
-            alert("Valami hiba történt!");
-          }
-        });
-    },
-    getEmployerPicture() {
-      axios
-        .get(
-          `http://localhost:8080/api/img/get/employer/${this.employer.picture}`,
-          { responseType: "arraybuffer" }
-        )
-        .then((response) => {
-          if (response.status == 200) {
-            this.loadedPicture = "data:image/jpg;base64, ".concat(
-              Buffer.from(response.data, "binary").toString("base64")
-            );
-          }
-        });
+      axios.post(`${this.$store.state.domain}/img/upload/employer/${id}`, formData)
+      .then(response => {
+        if(response.status == 201) {
+          sessionStorage.setItem("picture", id.concat("_").concat(this.selectedFile.name));
+          this.employer.picture = sessionStorage.getItem("picture");
+          this.loadedPicture = this.selectedFile;
+          this.selectedFile = null;
+        } else {
+          alert("Valami hiba történt!");
+        }
+      });
     },
     deletePicture() {
-      axios
-        .delete(
-          `http://localhost:8080/api/img/delete/employer/${this.employer.picture}`
-        )
-        .then((response) => {
-          if (response.status == 200) {
-            sessionStorage.setItem("picture", "");
-            this.employer.picture = null;
-            this.loadedPicture = null;
-          }
-        });
-    },
-  },
+      axios.delete(`${this.$store.state.domain}/img/delete/employer/${this.employer.pictureName}`)
+      .then(response => {
+        if (response.status == 200) {
+          sessionStorage.setItem("picture", "");
+          sessionStorage.setItem("pictureName", "")
+          this.employer.picture = null;
+          this.loadedPicture = null;
+        }
+      });
+    }
+  }
 };
 </script>

@@ -1,22 +1,21 @@
 <template>
-  <div class="categorylist">
+  <v-container class="categorylist">
     <datalist id="categorylist">
       <option v-for="category in categories" :key="category.id">
-        {{ category.name }}
+        {{category.name}}
       </option>
     </datalist>
-  </div>
+  </v-container>
 </template>
 
 <script>
-
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   data() {
     return {
-      categories: [],
-    };
+      categories: []
+    }
   },
 
   created() {
@@ -25,15 +24,9 @@ export default {
 
   methods: {
     loadCategories() {
-      axios
-        .get("http://localhost:8080/api/data/categories")
-        .then((response) => response.data)
-        .then((data) => {
-          data.forEach((category) => {
-            this.categories.push(category);
-          });
-        });
-    },
-  },
-};
+      axios.get(`${this.$store.state.domain}/data/categories`)
+      .then(response => this.categories = response.data);
+    }
+  }
+}
 </script>
