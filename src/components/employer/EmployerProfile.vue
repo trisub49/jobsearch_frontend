@@ -3,17 +3,16 @@
     <v-container id="employerprofile">
         <v-card height>
           <v-card-text>
-            <v-row>
+            <v-row align="center" justify="space-around">
               <v-col id="image">
                 <v-img
-                  class="mx-auto"
                   v-if="employer.picture != null"
                   id="picture"
                   :src="loadedPicture"
-                  alt="Saját kép"
+                  alt="Cég logó"
                   lazy-src
                 />
-                <v-img v-else id="picture" src="img/empty_user.jpg" alt="Saját kép" />
+                <v-img v-else id="picture" src="img/empty_company.png" alt="Cég logó" />
               </v-col>
               <v-col id="info">
                 <v-icon>mdi-briefcase-outline</v-icon><br>
@@ -114,14 +113,8 @@
 #image {
   float: left;
   width: 60%;
-  border: 0.5px solid black;
-  display: table-cell;
-  text-align: center;
 }
-#picture {
-  width: 100%;
-  vertical-align: middle;
-}
+
 .dataname {
 	font-weight: bold;
   font-size: small;
