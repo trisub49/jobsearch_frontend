@@ -6,8 +6,8 @@
             <v-row align="center" justify="space-around">
               <v-col id="image">
                 <v-img
-                  v-if="employer.picture != null && employer.picture != '' && employer.picture != 'null'"
-                  :src="loadedPicture"
+                  v-if="employer.picture"
+                  :src="employer.picture"
                   alt="Cég logó"
                   lazy-src
                 />
@@ -35,7 +35,7 @@
           <v-card-actions>
             <v-container id="profileactions">
               <v-row>
-                <v-col id="pictureaction" v-if="employer.picture != null && employer.picture != '' && employer.picture != 'null'">
+                <v-col id="pictureaction" v-if="employer.picture">
                   <v-btn class="mainbutton" @click="deletePicture" small depressed>
                     <v-icon>mdi-delete-outline</v-icon>
                     Kép törlése
@@ -48,7 +48,6 @@
                     hide-details
                     dense
                     flat
-                    show-size
                     v-model="selectedFile"
                     hide-input
                   />
@@ -141,7 +140,7 @@
 </style>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
 
@@ -150,25 +149,17 @@ export default {
       employer: {
         company: sessionStorage.getItem("company"),
         name: sessionStorage.getItem("name"),
-        settlement: !sessionStorage.getItem("settlement")
-          ? "Nincs megadva"
-          : sessionStorage.getItem("settlement"),
+        settlement: !sessionStorage.getItem("settlement") ? "Nincs megadva" : sessionStorage.getItem("settlement"),
         phoneNumber: sessionStorage.getItem("phoneNumber"),
         description: sessionStorage.getItem("description"),
-        picture: !sessionStorage.getItem("picture")
-          ? null
-          : sessionStorage.getItem("picture"),
-          pictureName: sessionStorage.getItem('pictureName')
+        picture: sessionStorage.getItem("picture"),
+        pictureName: sessionStorage.getItem("pictureName")
       },
       selectedFile: null,
-      loadedPicture: null,
-    };
+    }
   },
 
   created() {
-    if (this.employer.picture != null && this.employer.picture != "null") {
-      this.loadedPicture = "data:image/jpg;base64, " + this.employer.picture;
-    }
   },
 
   methods: {
@@ -179,15 +170,17 @@ export default {
       axios.post(`${this.$store.state.domain}/img/upload/employer/${id}`, formData)
       .then(response => {
         if(response.status == 201) {
-          sessionStorage.setItem("picture", id.concat("_").concat(this.selectedFile.name));
+          console.log(response.data.pictureCode);
+          sessionStorage.setItem("pictureName", `${id}_${this.selectedFile.name}`);
+          sessionStorage.setItem("picture", response.data.pictureCode);
           this.employer.picture = sessionStorage.getItem("picture");
-          this.loadedPicture = this.selectedFile;
           this.selectedFile = null;
         } else {
           alert("Valami hiba történt!");
         }
       });
     },
+
     deletePicture() {
       axios.delete(`${this.$store.state.domain}/img/delete/employer/${this.employer.pictureName}`)
       .then(response => {
@@ -195,7 +188,6 @@ export default {
           sessionStorage.setItem("picture", "");
           sessionStorage.setItem("pictureName", "")
           this.employer.picture = null;
-          this.loadedPicture = null;
         }
       });
     }

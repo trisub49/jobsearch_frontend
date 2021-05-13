@@ -33,14 +33,8 @@ export default {
 
   methods: {
     loadNewJobs() {
-      axios.get('http://localhost:8080/api/job')
-      .then(response => response.data)
-      .then(data => {
-        data.forEach(job => {
-          this.newJobs.push(job);
-        });
-      }) 
-      .catch(error => console.log(error));
+      axios.get(`${this.$store.state.domain}/job`)
+      .then(response => this.newJobs = response.data);
     }
   }
 }

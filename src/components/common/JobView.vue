@@ -12,7 +12,7 @@
 				<v-card-text>
 					<v-row class="jobbody" align="center" justify="space-around">
 						<v-col class="image text-left">
-							<v-img v-if="job.picture" :src="job.picture" />
+							<v-img v-if="job.picture != null" :src="job.picture" />
 							<v-img v-else src="/img/empty_company.png" />
 						</v-col>
 						<v-col class="details text-right">
@@ -58,7 +58,7 @@
 						<span class="jobdeadline">{{job.deadline}}</span>
 					</v-col>
 					<v-col class="image text-right">
-						<v-img v-if="job.picture" :src="job.picture" />
+						<v-img v-if="job.picture != null" :src="job.picture" />
 						<v-img v-else src="/img/empty_company.png" />
 					</v-col>
 				</v-row>
@@ -90,7 +90,7 @@
 .jobhead {
 	color: black;
 	font-weight: bold;
-  font-size: large;
+	font-size: large;
 }
 .image {
 	float: left;
