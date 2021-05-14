@@ -6,7 +6,7 @@
             <v-row align="center" justify="space-around">
               <v-col id="image">
                 <v-img
-                  v-if="employer.picture"
+                  v-if="employer.picture != 'null' && employer.picture != null"
                   :src="employer.picture"
                   alt="Cég logó"
                   lazy-src
@@ -35,7 +35,7 @@
           <v-card-actions>
             <v-container id="profileactions">
               <v-row>
-                <v-col id="pictureaction" v-if="employer.picture">
+                <v-col id="pictureaction" v-if="employer.picture != 'null' && employer.picture != null">
                   <v-btn class="mainbutton" @click="deletePicture" small depressed>
                     <v-icon>mdi-delete-outline</v-icon>
                     Kép törlése
@@ -81,7 +81,6 @@
 
 
 <style scoped>
-
 #profilemain {
   clear: both;
 }
@@ -112,7 +111,9 @@
   float: left;
   width: 60%;
 }
-
+#picture {
+  border: 0.75px solid rgba(0,0,0,0.3);
+}
 .dataname {
 	font-weight: bold;
   font-size: small;
@@ -159,9 +160,6 @@ export default {
     }
   },
 
-  created() {
-  },
-
   methods: {
     onFileUpload() {
       const formData = new FormData();
@@ -170,7 +168,6 @@ export default {
       axios.post(`${this.$store.state.domain}/img/upload/employer/${id}`, formData)
       .then(response => {
         if(response.status == 201) {
-          console.log(response.data.pictureCode);
           sessionStorage.setItem("pictureName", `${id}_${this.selectedFile.name}`);
           sessionStorage.setItem("picture", response.data.pictureCode);
           this.employer.picture = sessionStorage.getItem("picture");
