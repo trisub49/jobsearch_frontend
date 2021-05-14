@@ -71,7 +71,7 @@
   color: green;
 }
 #alerts {
-  width: 50%;
+  width: 80%;
 }
 </style>
 

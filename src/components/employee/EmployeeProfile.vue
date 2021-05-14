@@ -148,7 +148,6 @@ export default {
 			axios.post(`${this.$store.state.domain}/img/upload/employee/${id}`, formData)
 			.then(response => {
 				if(response.status == 201) {
-					console.log(response.data.pictureCode);
 					sessionStorage.setItem("pictureName", `${id}_${this.selectedFile.name}`);
 					sessionStorage.setItem("picture", response.data.pictureCode);
 					this.employee.picture = sessionStorage.getItem("picture");
@@ -162,8 +161,8 @@ export default {
 			axios.delete(`${this.$store.state.domain}/img/delete/employee/${this.employee.pictureName}`)
 			.then(response => {
 				if(response.status == 200) {
-					sessionStorage.setItem('picture', '');
-					sessionStorage.setItem('pictureName', '')
+					sessionStorage.setItem('picture', null);
+					sessionStorage.setItem('pictureName', null)
 					this.employee.picture = null;
 					this.employee.pictureName = null;
 				}

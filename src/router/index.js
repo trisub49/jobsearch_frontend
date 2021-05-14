@@ -39,7 +39,7 @@ const routes = [
     component: Search,
   },
   {
-    path: "/showjob",
+    path: "/showjob/:jobid",
     name: "ShowJob",
     component: ShowJob,
     props: true
@@ -96,13 +96,13 @@ const routes = [
     component: MyRegistries
   },
   {
-    path: "/showregistries",
+    path: "/showregistries/:jobid",
     name: "ShowRegistries",
     component: ShowRegistries,
     props: true
   },
   {
-    path: "/showemployee",
+    path: "/showemployee/:employeeid",
     name: "ShowEmployee",
     component: ShowEmployee,
     props: true

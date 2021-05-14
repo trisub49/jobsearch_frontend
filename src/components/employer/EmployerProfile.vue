@@ -182,9 +182,10 @@ export default {
       axios.delete(`${this.$store.state.domain}/img/delete/employer/${this.employer.pictureName}`)
       .then(response => {
         if (response.status == 200) {
-          sessionStorage.setItem("picture", "");
-          sessionStorage.setItem("pictureName", "")
+          sessionStorage.setItem("picture", null);
+          sessionStorage.setItem("pictureName", null)
           this.employer.picture = null;
+          this.employer.pictureName = null;
         }
       });
     }

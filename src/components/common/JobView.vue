@@ -4,8 +4,8 @@
 			<a @click="showJob(job)">
 				<v-card-title>
 					<v-row class="jobhead">
-						<v-col class="text-left">{{job.scope}}</v-col>
-						<v-col class="text-right">{{job.adDate}}</v-col>
+						<v-col class="text-left jobscope">{{job.scope}}</v-col>
+						<v-col class="text-right jobdate">{{job.adDate}}</v-col>
 					</v-row>
 				</v-card-title>
 				<v-divider />
@@ -36,8 +36,8 @@
 		<v-card class="jobview" v-else>
 			<v-card-title>
 				<v-row class="jobhead">
-					<v-col class="text-left">{{job.scope}}</v-col>
-					<v-col class="text-right">{{job.adDate}}</v-col>
+					<v-col class="text-left jobscope">{{job.scope}}</v-col>
+					<v-col class="text-right jobdate">{{job.adDate}}</v-col>
 				</v-row>
 			</v-card-title>
 			<v-divider />
@@ -92,6 +92,12 @@
 	font-weight: bold;
 	font-size: large;
 }
+.jobscope {
+	width: 80%;
+}
+.jobdate {
+	width: 20%;
+}
 .image {
 	float: left;
 	width: 45%;
@@ -137,7 +143,7 @@ export default {
 
 	methods: {
 		showJob(jobToPage) {
-			this.$router.push({name: 'ShowJob', params: {job: jobToPage}});
+			this.$router.push(`/showjob/${jobToPage.id}`);
 		}
 	}
 }

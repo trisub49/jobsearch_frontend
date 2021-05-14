@@ -5,7 +5,7 @@
             <PageStructure title="Álláshirdetői profil">
                 <EmployerProfile></EmployerProfile>
                 <v-container class="text-center">
-                    <v-btn class="mainbutton" depressed v-on:click="logout" width="50%">
+                    <v-btn class="mainbutton" depressed v-on:click="logout">
                         Kijelentkezés
                         <v-icon>mdi-logout</v-icon>
                     </v-btn>
@@ -16,7 +16,7 @@
             <PageStructure title="Álláskeresői profil">
                 <EmployeeProfile></EmployeeProfile>
                 <v-container class="text-center">
-                    <v-btn class="mainbutton" depressed v-on:click="logout" width="50%">
+                    <v-btn class="mainbutton" depressed v-on:click="logout">
                         Kijelentkezés
                         <v-icon>mdi-logout</v-icon>
                     </v-btn>
@@ -30,10 +30,10 @@
 
 <script>
 
-    import Login from "@/components/common/Login.vue";
-    import PageStructure from '@/components/main/PageStructure.vue'
-    import EmployeeProfile from '@/components/employee/EmployeeProfile.vue'
-    import EmployerProfile from '@/components/employer/EmployerProfile.vue'
+    import Login from '@/components/common/Login.vue';
+    import PageStructure from '@/components/main/PageStructure.vue';
+    import EmployeeProfile from '@/components/employee/EmployeeProfile.vue';
+    import EmployerProfile from '@/components/employer/EmployerProfile.vue';
 
     export default {
         name: 'profile',

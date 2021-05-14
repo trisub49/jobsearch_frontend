@@ -6,19 +6,12 @@
       </v-card-title>
       <v-card-text>
         <v-form>
-          <v-text-field
-            prepend-icon="mdi-account-circle"
-            label="Teljes név"
-            v-model="name"
-            required
-          />
+          <v-text-field prepend-icon="mdi-account-circle" label="Teljes név" v-model="name" required />
           <v-text-field
             prepend-icon="mdi-at"
             label="E-mail cím"
             v-model="email"
-            :error-messages="
-              emailError ? 'Ez az e-mail cím már regisztrálva van!' : ''
-            "
+            :error-messages="emailError ? 'Ez az e-mail cím már regisztrálva van!' : ''"
             @click="emailError = false"
             required
           />
@@ -45,13 +38,7 @@
             minlength="8"
             maxlength="16"
           />
-          <v-menu
-            ref="menu"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
+          <v-menu ref="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="birthdate"
@@ -66,24 +53,15 @@
                 @click="ageError = false"
               ></v-text-field>
             </template>
-            <v-date-picker
-              ref="picker"
-              v-model="birthdate"
-              :max="new Date().toISOString().substr(0, 10)"
-              min="1950-01-01"
-            ></v-date-picker>
+            <v-date-picker ref="picker" v-model="birthdate" :max="new Date().toISOString().substr(0, 10)" min="1950-01-01" />
           </v-menu>
         </v-form>
         <v-divider />
       </v-card-text>
       <v-card-actions class="justify-center">
-        <v-btn
-          width="50%"
-          class="mainbutton"
-          color="success"
-          @click="inspection()"
-          >Regisztráció</v-btn
-        >
+        <v-btn width="50%" class="mainbutton" color="success" @click="inspection()">
+          Regisztráció
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -158,7 +136,7 @@ export default {
 						sessionStorage.setItem("email", response.data.email);
 						sessionStorage.setItem("phoneNumber", response.data.phoneNumber);
 						sessionStorage.setItem("settlement", response.data.settlement);
-						sessionStorage.setItem("birthdate", response.data.birthDate);
+						sessionStorage.setItem("birthDate", response.data.birthDate);
 						this.$router.push("/profile");
 					}
 				});
