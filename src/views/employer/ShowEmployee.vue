@@ -1,48 +1,49 @@
 <template>
 	<v-container class="employeeprofile">
     <PageStructure title="Jelentkező">
-			<v-card>
+			<Loading v-if="loadStatus == 0" />
+			<v-card v-if="loadStatus == 1">
 				<v-card-text>
 					<v-row id="profilemain" align="center" justify="space-around">
 						<v-col id="profilehead">
-							<v-img v-if="actualemployee.employeePicture != 'null' && actualEmployee.employeePicture != null" id="profilepic" :src="actualEmployee.employeePicture" lazy-src alt="Saját kép" />
+							<v-img v-if="employee.picture != 'null' && employee.picture != null" id="profilepic" :src="employee.picture" lazy-src alt="Saját kép" />
 							<v-img v-else id="profilepic" src="img/empty_user.jpg" alt="Saját kép" />
 						</v-col>
 						<v-col id="profilebody" >
 							<v-icon>mdi-account-circle</v-icon><br>
 							<span class="dataname">Név</span><br>
-							<span class="datavalue">{{actualEmployee.employeeName}}</span><br>
+							<span class="datavalue">{{employee.name}}</span><br>
 							<v-icon>mdi-arrow-up</v-icon><br>
 							<span class="dataname">Életkor</span><br>
-							<span class="datavalue">{{calculateAge(actualEmployee.employeeBirthDate)}}</span><br>
+							<span class="datavalue">{{calculateAge(employee.birthDate)}}</span><br>
 							<v-icon>mdi-map-marker</v-icon><br>
 							<span class="dataname">Lakhely</span><br>
-							<span class="datavalue">{{actualEmployee.employeeSettlement}}</span><br>
-							<v-icon>mdi-phone-outline</v-icon>
+							<span class="datavalue">{{employee.settlement}}</span><br>
+							<v-icon>mdi-phone-outline</v-icon><br>
 							<span class="dataname">Telefonszám</span><br>
-							<span class="datavalue">{{actualEmployee.employeePhoneNumber}}</span>
+							<span class="datavalue">{{employee.phoneNumber}}</span>
 						</v-col>
 					</v-row>
 					<v-divider />
 					<v-container id="jobsandschools">
 						<h3 class="titles"><v-icon>mdi-school-outline</v-icon> Tanulmányok:</h3>
 						<v-spacer />
-						<v-container class="lists" v-if="schools.length">
+						<v-container class="lists" v-if="employee.pastSchools.length">
 							<table>
-								<tr v-for="school in schools" :key="school.id">
+								<tr v-for="school in employee.pastSchools" :key="school.id">
 									<td class="forschoolanddate">{{school.school}} ({{school.date}})</td><td class="foreducation"><b>{{school.education}}</b></td>
 								</tr>
 							</table>
 						</v-container>
 						<v-container v-else class="lists">Nincs megadva</v-container>
-						<br><br>
+						<br>
 						<v-divider />
 						<br>
 						<h3 class="titles"><v-icon>mdi-briefcase-outline</v-icon> Volt munkahelyek:</h3>
 						<v-spacer />
-						<v-container class="lists" v-if="jobs.length">
+						<v-container class="lists" v-if="employee.pastJobs.length">
 							<table>
-								<tr v-for="job in jobs" :key="job.id">
+								<tr v-for="job in employee.pastJobs" :key="job.id">
 									<td class="forschoolanddate">{{job.job}} ({{job.date}})</td><td class="foreducation"><b>{{job.scope}}</b></td>
 								</tr>
 							</table>
@@ -50,9 +51,11 @@
 						<v-container v-else class="lists">Nincs megadva</v-container>
 					</v-container>
 				</v-card-text>
+				<v-divider />
 				<v-card-actions>
-					<button @click="setStatus(actualEmployee.id, 1)">Interjúra hív</button>
-          <button @click="setStatus(actualEmployee.id, 2)">Elutasít</button>
+					<v-btn class="mainbutton" depressed width="33%" @click="setStatus(employee.id, 1)">Interjúra hív</v-btn>
+					<v-spacer />
+          <v-btn class="mainbutton" depressed width="33%" @click="setStatus(employee.id, 2)">Elutasít</v-btn>
 				</v-card-actions>
 			</v-card>
 		</PageStructure>
@@ -131,33 +134,24 @@ table {
 
 import PageStructure from '@/components/main/PageStructure.vue';
 import axios from 'axios';
+import Loading from '@/components/main/Loading.vue';
 
 export default {
 
-  props: [
-		'registry'
-	],
-
 	components: {
-			PageStructure
+			PageStructure,
+			Loading
 	},
 
 	created() {
-			this.getSchoolsAndJobs(this.actualEmployee.employeeId);
-			if(!this.actualEmployee.employeePhoneNumber) {
-					this.actualEmployee.employeePhoneNumber = 'Nincs megadva'
-			}
-			if(!this.actualEmployee.employeeSettlement) {
-					this.actualEmployee.employeeSettlement = 'Nincs megadva'
-			}
+		this.getEmployee();
 	},
 
 	data() {
-			return {
-					actualEmployee: this.registry,
-					schools: [],
-					jobs: []
-			}
+		return {
+			loadStatus: 0,
+			employee: {}
+		}
 	},
 
 	methods: {
@@ -170,18 +164,18 @@ export default {
 				return age;
 		},
 
-		getSchoolsAndJobs(id) {
-				axios.get(`http://localhost:8080/api/info/${id}`)
-				.then(response => response.data)
-				.then(data => {
-						if(data.schoolList) {
-								this.schools = data.schoolList;
-						}
-						if(data.jobList) {
-								this.jobs = data.jobList;
-						}
-				})
-				.catch(error => console.log(error));
+		getEmployee() {
+			axios.get(`${this.$store.state.domain}/auth/employee/${this.$route.params.employeeid}/${this.$route.params.registryid}`)
+			.then(response => {
+				this.employee = response.data;
+				if(this.employee.phoneNumber == '' || this.employee.phoneNumber == null) {
+					this.employee.phoneNumber = 'Nincs megadva'
+				}
+				if(this.employee.settlement == '' || this.employee.settlement == null) {
+						this.employee.settlement = 'Nincs megadva'
+				}
+				setTimeout(() => this.loadStatus = 1, 250);
+			})
 		},
 
 		setStatus(registryId, stat) {

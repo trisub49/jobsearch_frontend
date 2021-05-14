@@ -102,7 +102,7 @@ const routes = [
     props: true
   },
   {
-    path: "/showemployee/:employeeid",
+    path: "/showemployee/:employeeid/:registryid",
     name: "ShowEmployee",
     component: ShowEmployee,
     props: true

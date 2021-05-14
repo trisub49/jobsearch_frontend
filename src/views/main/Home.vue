@@ -41,10 +41,9 @@ export default {
     loadNewJobs() {
       axios.get(`${this.$store.state.domain}/job`)
       .then(response => this.newJobs = response.data);
-      setTimeout(() => this.loadStatus = 1, 500);
+      setTimeout(() => this.loadStatus = 1, 250);
     }
   }
 }
-
 </script>
 

@@ -1,7 +1,8 @@
 <template>
 	<v-container class="myjobs">
 		<PageStructure title="Hirdetéseid">
-			<v-card>
+			<Loading v-if="loadStatus == 0" />
+			<v-card v-if="loadStatus == 1">
 				<v-card-text>
 					<v-container v-if="!jobs.length" id="joblister">
 						Nincs feladott hirdetésed.
@@ -20,7 +21,7 @@
 								{{job.deadline}}
 							</v-col>
 							<v-col class="jobregistries">
-								<a @click="showRegistries(job.registries)">{{job.registries.length}} fő</a>
+								<a @click="showRegistries(job)">{{job.registries.length}} fő</a>
 							</v-col>
 						</v-row>
 					</v-container>
@@ -37,7 +38,6 @@
 </template>
 
 <style scoped>
-
 #joblister {
 	width: 100%;
 	padding: 20px;
@@ -70,43 +70,47 @@
 </style>
 
 <script>
-
-import PageStructure from '@/components/main/PageStructure.vue'
+import PageStructure from '@/components/main/PageStructure.vue';
 import axios from 'axios';
+import Loading from '@/components/main/Loading.vue';
 
 export default {
 
 	components: {
-		PageStructure
+		PageStructure,
+		Loading
 	},
 
 	data() {
-			return {
-					jobs: []
-			}
+		return {
+			loadStatus: 0,
+			jobs: []
+		}
 	},
 
 	created() {
-			this.findMyJobs();
+		this.findMyJobs();
 	},
 
 	methods: {
 		findMyJobs() {
-				axios.get(`${this.$store.state.domain}/job/emp/${sessionStorage.getItem('id')}`)
-				.then(response => this.jobs = response.data)
-				.catch(error => alert(error));
+			axios.get(`${this.$store.state.domain}/job/emp/${sessionStorage.getItem('id')}`)
+			.then(response => {
+				this.jobs = response.data
+				setTimeout(() => this.loadStatus = 1, 250);
+			})
+			.catch(error => alert(error));
 		},
 
 		showJob(jobToPage) {
-				this.$router.push(`/showjob/${jobToPage.id}`);
+			this.$router.push(`/showjob/${jobToPage.id}`);
 		},
 
-		showRegistries(registries) {
-			if(registries.length > 0) {
-				this.$router.push({name: 'ShowRegistries', params: {registryList: registries}});
+		showRegistries(jobToPage) {
+			if(jobToPage.registries.length > 0) {
+				this.$router.push(`/showregistries/${jobToPage.id}`);
 			}
 		}
 	}
 }
-
 </script>

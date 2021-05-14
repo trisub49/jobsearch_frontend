@@ -20,7 +20,7 @@
 						<v-icon>mdi-hand</v-icon>
 						Jelentkezés
 					</v-btn>
-					<v-btn class="mainbutton" depressed v-else @click="deleteRegistry()" width="33%">
+					<v-btn class="mainbutton" depressed v-else @click="deleteRegistry()">
 						<v-icon>mdi-backup-restore</v-icon>
 						Jelentkezés visszavonása
 					</v-btn>
@@ -31,12 +31,7 @@
 </template>
 
 <style scoped>
-.loading {
-	float: center;
-	width: 100%;
-	height: 640px;
-	vertical-align: middle;
-}
+
 </style>
 
 <script>
@@ -46,87 +41,90 @@ import JobView from '@/components/common/JobView.vue'
 import Loading from '@/components/main/Loading.vue'
 
 export default {
+	components: {
+		PageStructure,
+		JobView,
+		Loading
+	},
 
-    components: {
-        PageStructure,
-        JobView,
-				Loading
-    },
+	data() {
+		return {
+			loadStatus: 0,
+			job: {},
+			userId: sessionStorage.getItem('id'),
+			userType: (sessionStorage.getItem('type') == "false" || !sessionStorage.getItem('type').length) ? false : true,
+			loggedIn: (sessionStorage.getItem('loggedIn') == "false" || !sessionStorage.getItem('loggedIn').length) ? false : true,
+			registered: false
+		}
+	},
 
-    data() {
-        return {
-						loadStatus: 0,
-            job: {},
-            userId: sessionStorage.getItem('id'),
-            userType: (sessionStorage.getItem('type') == "false" || !sessionStorage.getItem('type').length) ? false : true,
-            loggedIn: (sessionStorage.getItem('loggedIn') == "false" || !sessionStorage.getItem('loggedIn').length) ? false : true,
-            registered: false
-        }
-    },
+	created() {
+			this.loadJobData()
+	},
 
-    created() {
-        this.loadJobData()
-        this.inspection();
-    },
+	methods: {
+		loadJobData() {
+			axios.get(`${this.$store.state.domain}/job/${this.$route.params.jobid}`)
+			.then(response => {
+				this.job = response.data;
+				this.inspection();
+				setTimeout(() => this.loadStatus = 1, 250);
+			});
+		},
 
-    methods: {
-        loadJobData() {
-            axios.get(`${this.$store.state.domain}/job/${this.$route.params.jobid}`)
-						.then(response => {
-							this.job = response.data;
-						});
-						setTimeout(() => this.loadStatus = 1, 500);
-        },
-        deleteJob(id) {
-            axios.delete(`http://localhost:8080/api/job/delete/${id}`)
-            .then(response => {
-                if(response.status == 200) {
-                    this.$router.push('/myjobs');
-                } else {
-                    alert("Valami hiba történt!")
-                }
-            });
-        },
-        inspection() {
-            axios.post('http://localhost:8080/api/sign/hasregistry', {
-                jobId: this.job.id,
-                employeeId: this.userId
-            })
-            .then(response => {
-                if(response.status == 200) {
-                    this.registered = false
-                } else {
-                    this.registered = false;
-                }
-            })
-        },
-        addRegistry() {
-            axios.post('http://localhost:8080/api/sign/add', {
-                jobId: this.actualJobId,
-                employeeId: this.userId,
-                status: 0
-            })
-            .then(response => {
-                if(response.status == 201) {
-                    this.registered = true;
-                }
-            })
-            .catch(error => alert(error));
-        },
-        deleteRegistry() {
-            axios.post('http://localhost:8080/api/sign/delete', {
-                jobId: this.actualJobId,
-                employeeId: this.userId,
-                status: 0
-            })
-            .then(response => {
-                if(response.status == 200) {
-                    this.registered = false;
-                }
-            })
-            .catch(error => alert(error));
-        }
-    }
+		deleteJob(id) {
+			axios.delete(`${this.$store.state.domain}/job/delete/${id}`)
+			.then(response => {
+				if(response.status == 200) {
+					this.$router.push('/myjobs');
+				} else {
+					alert("Valami hiba történt!")
+				}
+			});
+		},
+
+		inspection() {
+			console.log(this.job.id + " " + this.userId);
+			axios.post(`${this.$store.state.domain}/sign/hasregistry`, {
+				jobId: this.job.id,
+				employeeId: this.userId
+			})
+			.then(response => {
+				if(response.status == 200) {
+					this.registered = false
+				} else {
+					this.registered = true;
+				}
+			})
+		},
+
+		addRegistry() {
+			axios.post(`${this.$store.state.domain}/sign/add`, {
+				jobId: this.job.id,
+				employeeId: this.userId,
+				status: 0
+			})
+			.then(response => {
+				if(response.status == 201) {
+					this.registered = true;
+				}
+			})
+			.catch(error => alert(error));
+		},
+
+		deleteRegistry() {
+			axios.post(`${this.$store.state.domain}/sign/delete`, {
+				jobId: this.job.id,
+				employeeId: this.userId,
+				status: 0
+			})
+			.then(response => {
+				if(response.status == 200) {
+					this.registered = false;
+				}
+			})
+			.catch(error => alert(error));
+		}
+	}
 }
-
 </script>
