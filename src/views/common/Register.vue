@@ -1,5 +1,5 @@
 <template>
-	<v-container class="register mt-15 col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 text-center">
+	<v-container class="register mt-15 col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 text-center align-center">
 		<v-card color="blue-grey lighten-4 mx-auto" max-width="480px" elevation="12">
 			<v-card-title class="titlebg">
 				<h4>Regisztráció {{asEmployer ? "munkaadóként" : "álláskeresőként"}}</h4>

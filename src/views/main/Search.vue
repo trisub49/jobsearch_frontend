@@ -1,5 +1,5 @@
 <template>
-  <v-container class="search mt-15">
+  <v-container v-if="$store.state.pageLoaderStatus == 0" class="search mt-15">
       <v-container id="exp" class="justify-center">
         <v-expansion-panels v-model="panel" multiple>
           <v-expansion-panel expand :readonly="searchState != 2">
@@ -84,6 +84,11 @@ export default {
     JobView,
     CategoryList,
     SettlementList
+  },
+
+  created() {
+    this.$store.state.pageLoaderStatus = 1;
+    setTimeout(() => this.$store.state.pageLoaderStatus = 0, 500);
   },
 
   data() {

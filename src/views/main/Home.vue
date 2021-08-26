@@ -19,7 +19,6 @@ export default {
   },
   data() {
     return {
-      loadStatus: 0,
       newJobs: []
     }
   },
@@ -31,7 +30,7 @@ export default {
     loadNewJobs() {
       axios.get(`${this.$store.state.domain}/job`)
       .then(response => this.newJobs = response.data)
-      .then(setTimeout(() => this.$store.state.pageLoaderStatus = 0, 1500));
+      .then(setTimeout(() => this.$store.state.pageLoaderStatus = 0, 1000));
     }
   }
 }

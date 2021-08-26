@@ -1,5 +1,5 @@
 <template>
-  <v-container class="login mt-15 col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 text-center">
+  <v-container class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 mt-15" fluid>
     <v-card class="mx-auto" max-width="480px" color="blue-grey lighten-4" elevation="12">
       <v-card-title class="titlebg text-right">
         Bejelentkezés
@@ -81,7 +81,7 @@ export default {
       }
       sessionStorage.setItem("loggedIn", true);
       sessionStorage.setItem("type", this.type);
-      location.reload();
+      this.$router.push('/profile');
     },
     
     authenticate() {
