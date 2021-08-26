@@ -2,24 +2,22 @@
   <v-app>
     <NavBar />
     <v-main>
-      <router-view class="animate__animated animate__fadeIn animate__slower" />
+      <router-view class="animate__animated animate__fadeIn" />
     </v-main>
-    <v-container class="footer" fluid>
+    <!-- <v-container class="footer" fluid>
       <h3><b>Álláskereső portál projektmunka</b></h3>
       <h4>Copyright © 2021</h4>
       <h4>Farkas András</h4>
-    </v-container>
+    </v-container> -->
   </v-app>
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
-div[data-app='true'] {
-  background: no-repeat center center fixed !important;
-  background-size: cover;
+.v-app {
+  background-color: whitesmoke;
 }
-
 .mainbutton {
   font-weight: bold;
   padding: 5px;
@@ -28,7 +26,6 @@ div[data-app='true'] {
   margin-bottom: 7.5px;
   text-transform: unset;
 }
-
 .footer {
   font-family: "Inconsolata", monospace;
   padding: 10px;
@@ -36,17 +33,13 @@ div[data-app='true'] {
   color: white;
   text-align: center;
 }
-
 </style>
 
 <script>
-
 import NavBar from '@/components/main/NavBar.vue'
-
 export default {
   components: {
     NavBar
   }
 }
-
 </script>
