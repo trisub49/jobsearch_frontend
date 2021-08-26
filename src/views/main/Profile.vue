@@ -1,30 +1,30 @@
 <template>
 
-    <div class="profile">
-        <div v-if='loggedIn == true && userType == true'>
-            <PageStructure title="Álláshirdetői profil">
-                <EmployerProfile></EmployerProfile>
-                <v-container class="text-center">
-                    <v-btn class="mainbutton" depressed v-on:click="logout">
-                        Kijelentkezés
-                        <v-icon>mdi-logout</v-icon>
-                    </v-btn>
-                </v-container>
-            </PageStructure>
-        </div>
-        <div v-else-if='loggedIn == true && userType == false'>
-            <PageStructure title="Álláskeresői profil">
-                <EmployeeProfile></EmployeeProfile>
-                <v-container class="text-center">
-                    <v-btn class="mainbutton" depressed v-on:click="logout">
-                        Kijelentkezés
-                        <v-icon>mdi-logout</v-icon>
-                    </v-btn>
-                </v-container>
-            </PageStructure>
-        </div>
-        <div v-else><Login /></div>
-    </div>
+	<div class="profile">
+		<div v-if='loggedIn == true && userType == true'>
+			<PageStructure title="Álláshirdetői profil">
+				<EmployerProfile></EmployerProfile>
+				<v-container class="text-center">
+						<v-btn class="mainbutton" depressed v-on:click="logout">
+							Kijelentkezés
+							<v-icon>mdi-logout</v-icon>
+						</v-btn>
+					</v-container>
+				</PageStructure>
+			</div>
+		<div v-else-if='loggedIn == true && userType == false'>
+			<PageStructure title="Álláskeresői profil">
+				<EmployeeProfile></EmployeeProfile>
+				<v-container class="text-center">
+						<v-btn class="mainbutton" depressed v-on:click="logout">
+								Kijelentkezés
+								<v-icon>mdi-logout</v-icon>
+						</v-btn>
+				</v-container>
+			</PageStructure>
+		</div>
+		<div v-else><Login /></div>
+	</div>
     
 </template>
 

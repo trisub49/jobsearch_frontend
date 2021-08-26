@@ -1,62 +1,62 @@
 <template>
-  <v-container class="login">
-    <PageStructure title="Bejelentkezés">
-      <v-container class="justify-center" id="card">
-        <v-card>
-          <v-card-text>
-            <v-form>
-              <v-text-field
-                prepend-icon="mdi-at"
-                label="Email cím"
-                v-model="email"
-                placeholder="valami@valami.com"
-                :error-messages="emailError ? 'Ez az e-mail cím nem szerepel az adatbázisban!' : ''"
-                @click="emailError = false"
-              />
-              <v-text-field
-                prepend-icon="mdi-lock"
-                append-icon="mdi-eye-off"
-                label="Jelszó"
-                v-model="password"
-                placeholder="********"
-                :type="showPassword ? 'text' : 'password'"
-                :error-messages="passwordError ? 'A megadott jelszó hamis!' : ''"
-                @click="passwordError = false"
-                @click:append="showPassword = !showPassword"
-              />
-              <v-checkbox label="Bejelentkezés mint munkaadó" v-model="type" />
-              <v-divider />
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn width="40%" class="mainbutton" color="info" @click="authenticate()">
-              Bejelentkezés
-            </v-btn>
-            <v-spacer />
-            <v-btn width="40%" class="mainbutton" color="success" @click="$router.push('/profile/register')">
-              Regisztráció
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-container>
-    </PageStructure>
+  <v-container class="login mt-15 col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 text-center">
+    <v-card class="mx-auto" max-width="480px" color="blue-grey lighten-4" elevation="12">
+      <v-card-title>
+        Bejelentkezés
+      </v-card-title>
+      <v-card-text>
+        <v-divider />
+        <br>
+        <v-form>
+          <v-text-field
+            prepend-icon="mdi-at"
+            label="Email cím"
+            v-model="email"
+            placeholder="valami@valami.com"
+            :error-messages="emailError ? 'Ez az e-mail cím nem szerepel az adatbázisban!' : ''"
+            @click="emailError = false"
+          />
+          <v-text-field
+            prepend-icon="mdi-lock"
+            append-icon="mdi-eye-off"
+            label="Jelszó"
+            v-model="password"
+            placeholder="********"
+            :type="showPassword ? 'text' : 'password'"
+            :error-messages="passwordError ? 'A megadott jelszó hamis!' : ''"
+            @click="passwordError = false"
+            @click:append="showPassword = !showPassword"
+          />
+          <v-checkbox label="Bejelentkezés mint munkaadó" v-model="type" />
+          <v-divider />
+        </v-form>
+      </v-card-text>
+      <v-card-actions class="px-6">
+        <v-btn width="40%" dark rounded color="info" @click="authenticate()">
+          Bejelentkezés
+        </v-btn>
+        <v-spacer />
+        <v-btn width="40%" rounded color="success" @click="$router.push('/profile/register')">
+          Regisztráció
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
 <style scoped>
-#card {
-  max-width: 640px;
+
+.v-btn {
+  text-transform: unset;
 }
+
 </style>
+
 
 <script>
 import axios from 'axios';
-import PageStructure from '@/components/main/PageStructure.vue';
 
 export default {
-  components: {
-    PageStructure
-  },
 
   data() {
     return {
