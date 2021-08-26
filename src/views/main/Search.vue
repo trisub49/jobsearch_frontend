@@ -75,7 +75,6 @@
 
 <script>
 import axios from 'axios';
-import PageStructure from '@/components/main/PageStructure.vue';
 import JobView from '@/components/common/JobView.vue';
 import CategoryList from '@/components/common/CategoryList.vue';
 import SettlementList from '@/components/common/SettlementList.vue';

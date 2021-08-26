@@ -2,7 +2,7 @@
   <v-app>
     <NavBar />
     <v-main>
-      <router-view />
+      <router-view class="animate__animated animate__fadeIn" />
     </v-main>
     <v-container class="footer" fluid>
       <h3><b>Álláskereső portál projektmunka</b></h3>
