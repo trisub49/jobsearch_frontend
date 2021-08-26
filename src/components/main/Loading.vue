@@ -1,16 +1,7 @@
 <template>
-    <v-container class="loading">
-        <v-layout align-center justify-center column fill-height>
-            <v-flex row align-center>
-                <v-progress-circular indeterminate :size="50" color="primary" class=""></v-progress-circular>
-            </v-flex>
-        </v-layout>
-    </v-container>
+	<v-progress-linear v-if="$store.state.pageLoaderStatus == 1"
+		indeterminate
+		color="cyan"
+  ></v-progress-linear>
 </template>
 
-<style scoped>
-.loading {
-    width: 100%;
-    height: 240px;
-}
-</style>

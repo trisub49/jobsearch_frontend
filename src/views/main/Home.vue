@@ -1,47 +1,37 @@
 <template>
-
-  <v-container>
+  <v-container v-if="!$store.state.pageLoaderStatus" fluid>
     <PageStructure title="Legújabb állások">
-      <Loading v-if="loadStatus == 0" />
-      <v-container v-if="loadStatus == 1">
-        <JobView v-for="jobToComponent in newJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
-      </v-container>
+      <JobView v-for="jobToComponent in newJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
     </PageStructure>
   </v-container>
-
 </template>
 
 <script>
+import axios from 'axios';
 
 import JobView from '@/components/common/JobView.vue';
 import PageStructure from '@/components/main/PageStructure.vue';
-import axios from 'axios';
-import Loading from '@/components/main/Loading.vue';
 
 export default {
-
   components: {
     JobView,
-    PageStructure,
-    Loading
+    PageStructure
   },
-
   data() {
     return {
       loadStatus: 0,
       newJobs: []
     }
   },
-
   created() {
+    this.$store.state.pageLoaderStatus = 1;
     this.loadNewJobs();
   },
-
   methods: {
     loadNewJobs() {
       axios.get(`${this.$store.state.domain}/job`)
-      .then(response => this.newJobs = response.data);
-      setTimeout(() => this.loadStatus = 1, 250);
+      .then(response => this.newJobs = response.data)
+      .then(setTimeout(() => this.$store.state.pageLoaderStatus = 0, 1500));
     }
   }
 }

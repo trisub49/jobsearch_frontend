@@ -84,7 +84,6 @@ export default {
 		},
 
 		inspection() {
-			console.log(this.job.id + " " + this.userId);
 			axios.post(`${this.$store.state.domain}/sign/hasregistry`, {
 				jobId: this.job.id,
 				employeeId: this.userId

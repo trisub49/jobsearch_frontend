@@ -1,6 +1,5 @@
 <template>
   <v-container class="search">
-    <PageStructure title="Keresés">
       <v-container id="exp" class="justify-center">
         <v-expansion-panels v-model="panel" multiple>
           <v-expansion-panel expand :readonly="searchState != 2">
@@ -59,7 +58,6 @@
         <v-spacer />
         <JobView v-for="jobToComponent in foundJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
       </v-container>
-    </PageStructure>
   </v-container>
 </template>
 
@@ -84,7 +82,6 @@ import SettlementList from '@/components/common/SettlementList.vue';
 
 export default {
   components: {
-    PageStructure,
     JobView,
     CategoryList,
     SettlementList

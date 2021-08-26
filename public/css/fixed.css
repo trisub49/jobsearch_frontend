@@ -9,7 +9,7 @@ html {
 body {
     background-image: url(/img/jobseeker.jpg);
     background-size: cover;
-    background-position: center;
+    background-position: right;
     background-attachment: fixed;
     background-repeat: no-repeat;
     font-family: "Inconsolata", monospace;

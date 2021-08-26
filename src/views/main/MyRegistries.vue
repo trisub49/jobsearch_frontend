@@ -60,66 +60,66 @@ import PageStructure from '@/components/main/PageStructure.vue'
 import axios from 'axios';
 
 export default {
-    data() {
-			return {
-				loadStatus: 0,
-				userId: sessionStorage.getItem('id'),
-				jobs: []
-			}
-    },
+	data() {
+		return {
+			loadStatus: 0,
+			userId: sessionStorage.getItem('id'),
+			jobs: []
+		}
+	},
 
-    created() {
-			this.loadJobs();
-    },
+	created() {
+		this.loadJobs();
+	},
 
-    components: {
-			PageStructure
-    },
+	components: {
+		PageStructure
+	},
 
-    methods: {
-			loadJobs() {
-				axios.get(`${this.$store.state.domain}/sign/${this.userId}`)
-				.then(response => {
-					if(response.status == 200) {
-						this.jobs = response.data;
-						setTimeout(this.loadStatus = 1, 250);
-					}
-				})
-			},
+	methods: {
+		loadJobs() {
+			axios.get(`${this.$store.state.domain}/sign/${this.userId}`)
+			.then(response => {
+				if(response.status == 200) {
+					this.jobs = response.data;
+					setTimeout(this.loadStatus = 1, 250);
+				}
+			})
+		},
 
-			getWaitingJobs() {
-				var waitingJobs = [];
-				this.jobs.forEach(job => {
-					if(job.status == 0) waitingJobs.push(job);
-				});
-				return waitingJobs;
-			},
+		getWaitingJobs() {
+			var waitingJobs = [];
+			this.jobs.forEach(job => {
+				if(job.status == 0) {
+					waitingJobs.push(job);
+				}
+			});
+			return waitingJobs;
+		},
 
-			getInterviewJobs() {
-				var interviewJobs = [];
-				this.jobs.forEach(job => {
-					if(job.status == 1) interviewJobs.push(job);
-				});
-				return interviewJobs;
-			},
+		getInterviewJobs() {
+			var interviewJobs = [];
+			this.jobs.forEach(job => {
+				if(job.status == 1) {
+					interviewJobs.push(job);
+				}
+			});
+			return interviewJobs;
+		},
 
-			getDeclinedJobs() {
-				var declinedJobs = [];
-				this.jobs.forEach(job => {
-					if(job.status == 2) declinedJobs.push(job);
-				});
-				return declinedJobs;
-			},
+		getDeclinedJobs() {
+			var declinedJobs = [];
+			this.jobs.forEach(job => {
+				if(job.status == 2) {
+					declinedJobs.push(job);
+				}
+			});
+			return declinedJobs;
+		},
 
-			showJob(id) {
-				axios.get(`${this.$store.state.domain}/job/${id}`)
-				.then(response => {
-					if(response.status == 200) {
-						this.$router.push({name: 'ShowJob', params: {job: response.data}});
-					}
-				})
-			}
-    }
+		showJob(id) {
+			this.$router.push(`/showjob/${id}`);
+		}
+	}
 }
-
 </script>

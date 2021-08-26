@@ -7,6 +7,7 @@ Vue.use(axios);
 
 export default new Vuex.Store({
   state: {
+    pageLoaderStatus: 0,
     domain: 'http://localhost:8080/api'
   },
   mutations: {},

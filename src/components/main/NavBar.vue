@@ -1,16 +1,19 @@
 <template>
-	<v-app-bar id="nav" fixed dense dark color="rgba(0, 0, 0, 0.75)">
-		<ul class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-			<li v-for="menu in menus" :key="menu.name">
-				<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon>{{menu.name}}</a>
-			</li>
-		</ul>
-		<ul class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
-			<li v-for="menu in menus" :key="menu.name">
-				<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon></a>
-			</li>
-		</ul>
-	</v-app-bar>
+	<v-container fluid class="pa-0 ma-0">
+		<v-app-bar id="nav" fixed dense dark color="rgba(0, 0, 0, 0.75)">
+			<ul class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+				<li v-for="menu in menus" :key="menu.name">
+					<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon>{{menu.name}}</a>
+				</li>
+			</ul>
+			<ul class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
+				<li v-for="menu in menus" :key="menu.name">
+					<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon></a>
+				</li>
+			</ul>
+		</v-app-bar>
+		<Loading class="mt-12"/>
+	</v-container>
 </template>
 
 <style scoped>
@@ -38,7 +41,12 @@ li :hover {
 </style>
 
 <script>
+import Loading from '@/components/main/Loading.vue';
+
 export default {
+	components: {
+		Loading,
+	},
 	data() {
 		return {
 			menus: [

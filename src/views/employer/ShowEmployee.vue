@@ -55,7 +55,7 @@
 				<v-card-actions>
 					<v-btn class="mainbutton" depressed width="33%" @click="setStatus(employee.id, 1)">Interjúra hív</v-btn>
 					<v-spacer />
-          <v-btn class="mainbutton" depressed width="33%" @click="setStatus(employee.id, 2)">Elutasít</v-btn>
+          			<v-btn class="mainbutton" depressed width="33%" @click="setStatus(employee.id, 2)">Elutasít</v-btn>
 				</v-card-actions>
 			</v-card>
 		</PageStructure>
@@ -175,19 +175,24 @@ export default {
 						this.employee.settlement = 'Nincs megadva'
 				}
 				setTimeout(() => this.loadStatus = 1, 250);
+				this.getStatus();
 			})
 		},
 
+		getStatus() {
+			axios.get('')
+		},
+
 		setStatus(registryId, stat) {
-			axios.post(`http://localhost:8080/api/sign/status`, {
-					id: registryId,
-					status: stat
+			axios.post(`${this.$store.state.domain}/sign/status`, {
+				id: registryId,
+				status: stat
+			})
+			.then(response => {
+				if(response.status == 200) {
+					this.$router.go(-1);
+				}
 			});
-			if(stat == 1) {
-					alert("Jelentkező interjúra hívva!")
-			} else {
-					alert("Jelentkező elutasítva!");
-			}
 		}
 	}
 }
