@@ -158,9 +158,7 @@
 .v-btn {
 	text-transform: unset;
 }
-.titlebg {
-  background-image: linear-gradient(to top, #CFD8DC, #78909C);
-}
+
 </style>
 
 <script>

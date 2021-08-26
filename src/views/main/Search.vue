@@ -1,75 +1,86 @@
 <template>
-  <v-container v-if="$store.state.pageLoaderStatus == 0" class="search mt-15">
-      <v-container id="exp" class="justify-center">
-        <v-expansion-panels v-model="panel" multiple>
-          <v-expansion-panel expand :readonly="searchState != 2">
-            <v-expansion-panel-header> 
-              <h3>Keresési feltételek</h3>
-            </v-expansion-panel-header>
-              <v-expansion-panel-content>
-                <v-form id="searchform">
-                  <v-text-field
-                    prepend-icon="mdi-magnify"
-                    label="Kulcsszó"
-                    v-model="scope"
-                    placeholder="kőműves, java programozó, stb..."
-                    autofocus
-                    @mouseover="resetAlerts()"
-                  />
-                  <CategoryList />
-                  <v-text-field
-                    prepend-icon="mdi-animation-outline"
-                    label="Kategória"
-                    v-model="category"
-                    list="categorylist"
-                    placeholder="IT, könyvelés, stb..."
-                    @mousever="resetAlerts()"
-                  />
-                  <SettlementList />
-                  <v-text-field
-                    prepend-icon="mdi-map-marker"
-                    label="Hely"
-                    v-model="postcode"
-                    list="settlementlist"
-                    placeholder="pl.: Budapest"
-                    @mouseover="resetAlerts()"
-                  />
-                </v-form>
-                <v-container id="alerts" class="justify-center">
-                  <v-alert v-if="noCondition" type="error" dense outlined class="text-center">
-                    Nem adtál meg keresési feltételt!
-                  </v-alert>
-                  <v-alert v-if="searchState == 1" type="info" dense outlined class="text-center">
-                    A feltételek alapján nincs találat!
-                  </v-alert>
-                </v-container>
-                <v-container class="text-center">
-                    <v-btn class="mainbutton" width="50%" @click="search()">
-                      <v-icon>mdi-magnify</v-icon>Keresés
-                    </v-btn>
-                  </v-container>
-              </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-container>
-      <v-container v-if="searchState == 2">
-        <v-spacer />
-        <span id="foundcounter"><h3>{{foundJobs.length}} találat</h3></span>
-        <v-spacer />
-        <JobView v-for="jobToComponent in foundJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
-      </v-container>
+  <v-container v-if="$store.state.pageLoaderStatus == 0" class="search col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 mt-15 mx-auto" fluid>
+    <v-expansion-panels v-model="panel" multiple>
+      <v-expansion-panel expand :readonly="searchState != 2">
+        <v-expansion-panel-header class="titlebg text-h6"> 
+          Keresési feltételek
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="blue-grey lighten-4">
+          <v-form>
+            <SettlementList />
+            <CategoryList />
+            <br>
+            <v-text-field
+              solo dense 
+              prepend-icon="mdi-magnify"
+              label="Kulcsszó"
+              v-model="scope"
+              placeholder="kőműves, java programozó, stb..."
+              autofocus
+              @mouseover="resetAlerts()"
+            />
+            <v-row>
+              <v-col>
+                <v-text-field class="halfsize float-left"
+                  solo dense
+                  prepend-icon="mdi-animation-outline"
+                  label="Kategória"
+                  v-model="category"
+                  list="categorylist"
+                  placeholder="IT, könyvelés, stb..."
+                  @mousever="resetAlerts()"
+                />
+              </v-col>
+              <v-col>
+                <v-text-field class="halfsize float-right"
+                  solo dense
+                  prepend-icon="mdi-map-marker"
+                  label="Hely"
+                  v-model="postcode"
+                  list="settlementlist"
+                  placeholder="pl.: Budapest"
+                  @mouseover="resetAlerts()"
+                />
+              </v-col>
+            </v-row>
+            <v-container class="text-center font-weight-bold">
+              <v-btn color="red darken-4" plain>Több részlet megjelenítése</v-btn>
+            </v-container>
+          </v-form>
+          <v-container class="justify-center text-center ma-0 pa-0">
+            <v-alert v-if="noCondition" type="error" dense class="mx-auto">
+              Nem adtál meg keresési feltételt!
+            </v-alert>
+            <v-alert v-if="searchState == 1" type="info" dense class="mx-auto">
+              A feltételek alapján nincs találat!
+            </v-alert>
+          </v-container>
+          <v-container class="text-center">
+            <v-btn rounded color="success" width="50%" @click="search()">
+              <v-icon>mdi-magnify</v-icon>Keresés
+            </v-btn>
+          </v-container>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    <v-container v-if="searchState == 2" class="pa-0 ma-0 pt-5 text-right" fluid>
+      <v-spacer />
+      <span class="text-h6">{{foundJobs.length}} találat</span>
+      <v-spacer />
+      <JobView class="mt-5" v-for="jobToComponent in foundJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
+    </v-container>
   </v-container>
 </template>
 
 <style scoped>
-#exp {
-  max-width: 640px;
+.search {
+  font-family: 'Quicksand', sans-serif;
 }
-#foundcounter {
-  color: green;
+.v-btn {
+  text-transform: unset;
 }
-#alerts {
-  width: 80%;
+.halfsize {
+  width: 95%;
 }
 </style>
 

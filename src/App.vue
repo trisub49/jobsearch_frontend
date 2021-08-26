@@ -13,10 +13,10 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400&display=swap');
 
-.v-app {
-  background-color: whitesmoke;
+#app {
+  background-color: lightgrey;
 }
 .mainbutton {
   font-weight: bold;
@@ -32,6 +32,9 @@
   background-color: rgba(0, 0, 0, 0.3);
   color: white;
   text-align: center;
+}
+.titlebg {
+  background-image: linear-gradient(to top, #CFD8DC, #78909C);
 }
 </style>
 

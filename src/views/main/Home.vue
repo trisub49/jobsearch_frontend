@@ -1,8 +1,8 @@
 <template>
-  <v-container v-if="!$store.state.pageLoaderStatus" fluid>
-    <PageStructure title="Legújabb állások">
-      <JobView v-for="jobToComponent in newJobs" :key="jobToComponent.id" :showdesc="false" :job="jobToComponent" />
-    </PageStructure>
+  <v-container class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 pa-0 mt-15" v-if="!$store.state.pageLoaderStatus" fluid>
+    <v-container v-for="jobToComponent in newJobs" :key="jobToComponent.id" class="pa-0 ma-0 pb-8">
+      <JobView :showdesc="false" :job="jobToComponent" />
+    </v-container>
   </v-container>
 </template>
 
@@ -10,12 +10,10 @@
 import axios from 'axios';
 
 import JobView from '@/components/common/JobView.vue';
-import PageStructure from '@/components/main/PageStructure.vue';
 
 export default {
   components: {
-    JobView,
-    PageStructure
+    JobView
   },
   data() {
     return {

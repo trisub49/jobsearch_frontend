@@ -1,5 +1,5 @@
 <template>
-	<v-container class="settlementlist">
+	<v-container class="settlementlist pa-0 ma-0">
 		<datalist id="settlementlist">
 			<option v-for="settlement in settlements" :key="settlement.id">{{settlement.name}}</option>
 		</datalist>
