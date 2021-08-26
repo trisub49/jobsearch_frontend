@@ -9,6 +9,7 @@
         <br>
         <v-form>
           <v-text-field
+            solo dense
             prepend-icon="mdi-at"
             label="Email cím"
             v-model="email"
@@ -17,6 +18,7 @@
             @click="emailError = false"
           />
           <v-text-field
+            solo dense
             prepend-icon="mdi-lock"
             append-icon="mdi-eye-off"
             label="Jelszó"
@@ -27,7 +29,7 @@
             @click="passwordError = false"
             @click:append="showPassword = !showPassword"
           />
-          <v-checkbox label="Bejelentkezés mint munkaadó" v-model="type" />
+          <v-checkbox class="mx-auto" label="Bejelentkezés mint munkaadó" v-model="type" />
           <v-divider />
         </v-form>
       </v-card-text>

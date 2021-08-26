@@ -23,7 +23,7 @@
 				</v-container>
 			</PageStructure>
 		</div>
-		<div v-else><Login /></div>
+		<Login v-else />
 	</div>
     
 </template>
