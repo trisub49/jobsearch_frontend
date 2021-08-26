@@ -1,11 +1,10 @@
 <template>
 	<v-container class="register mt-15 col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 text-center">
 		<v-card color="blue-grey lighten-4 mx-auto" max-width="480px" elevation="12">
-			<v-card-title>
+			<v-card-title class="titlebg">
 				<h4>Regisztráció {{asEmployer ? "munkaadóként" : "álláskeresőként"}}</h4>
 			</v-card-title>
-			<v-card-text>
-				<v-divider />
+			<v-card-text class="pb-0">
 				<v-checkbox v-model="asEmployer" label="Munkaadóként" />
 				<v-form v-if="!asEmployer">
 					<v-text-field 
@@ -138,9 +137,8 @@
             required
           />
         </v-form>
-				<v-divider />
 			</v-card-text>
-			<v-card-actions class="justify-center">
+			<v-card-actions class="justify-center pt-0">
 				<v-btn width="50%" rounded color="success" @click="inspection()">
 					Regisztráció
 				</v-btn>
@@ -159,6 +157,9 @@
 }
 .v-btn {
 	text-transform: unset;
+}
+.titlebg {
+  background-image: linear-gradient(to top, #CFD8DC, #78909C);
 }
 </style>
 

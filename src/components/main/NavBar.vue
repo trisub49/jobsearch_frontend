@@ -1,14 +1,18 @@
 <template>
-	<v-container fluid class="pa-0 ma-0">
+	<v-container fluid class="pa-0 ma-0 float-left">
 		<v-app-bar id="nav" fixed dense dark color="rgba(0, 0, 0, 0.75)">
-			<ul class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-				<li v-for="menu in menus" :key="menu.name">
-					<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon>{{menu.name}}</a>
+			<ul class="d-none d-sm-none d-md-block d-lg-block d-xl-block pa-0 ma-0">
+				<li v-for="menu in menusx" :key="menu.name" class="d-inline-block px-2">
+					<router-link class="menuelement" :to="menu.link">
+						{{menu.name}}
+					</router-link>
 				</li>
 			</ul>
-			<ul class="d-block d-sm-block d-md-none d-lg-none d-xl-none">
-				<li v-for="menu in menus" :key="menu.name">
-					<a v-if="menu.condition" @click="$router.push(menu.link)"> <v-icon>{{menu.icon}}</v-icon></a>
+			<ul class="d-block d-sm-block d-md-none d-lg-none d-xl-none pa-0 ma-0">
+				<li v-for="menu in menusx" :key="menu.name" class="d-inline-block px-2">
+					<router-link class="menuelement" :to="menu.link">
+						<v-icon>{{menu.icon}}</v-icon>
+					</router-link>
 				</li>
 			</ul>
 		</v-app-bar>
@@ -18,25 +22,15 @@
 
 <style scoped>
 .v-app-bar {
-  font-family: "Inconsolata", monospace;
+  font-family: 'Quicksand', sans-serif;
   text-transform: uppercase;
 }
-li {
-	display: inline-block;
-	padding-right: 10px;
-}
-li a {
-  padding: 10px;
-  text-decoration: none;
+.menuelement {
+	text-decoration: none;
 	color: white;
-  text-shadow: 1px 1px darkslategray;
 }
-li :hover {
-	transition: ease;
-	border-bottom: 2px 2px darkslategray;
-}
-.v-icon {
-	padding: 5px;
+.router-link-exact-active {
+	color: gold !important;
 }
 </style>
 
@@ -59,6 +53,11 @@ export default {
 		}
 	},
 
+	computed: {
+		menusx() {
+			return this.menus.filter(x => x.condition == true);
+		}
+	},
 	methods: {
 		isEmployerAndLoggedIn() {
 			if(sessionStorage.getItem("loggedIn") == "true" && sessionStorage.getItem("type") == "true") {

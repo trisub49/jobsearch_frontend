@@ -1,12 +1,10 @@
 <template>
   <v-container class="login mt-15 col-12 col-sm-10 col-md-6 col-lg-5 col-xl-5 text-center">
     <v-card class="mx-auto" max-width="480px" color="blue-grey lighten-4" elevation="12">
-      <v-card-title>
+      <v-card-title class="titlebg text-right">
         Bejelentkezés
       </v-card-title>
-      <v-card-text>
-        <v-divider />
-        <br>
+      <v-card-text class="pb-0">
         <v-form>
           <v-text-field
             solo dense
@@ -30,15 +28,14 @@
             @click:append="showPassword = !showPassword"
           />
           <v-checkbox class="mx-auto" label="Bejelentkezés mint munkaadó" v-model="type" />
-          <v-divider />
         </v-form>
       </v-card-text>
-      <v-card-actions class="px-6">
-        <v-btn width="40%" dark rounded color="info" @click="authenticate()">
+      <v-card-actions class="px-6 pb-5 pt-0 actionsbg">
+        <v-btn width="40%" rounded elevation="12" color="info" @click="authenticate()">
           Bejelentkezés
         </v-btn>
         <v-spacer />
-        <v-btn width="40%" rounded color="success" @click="$router.push('/profile/register')">
+        <v-btn width="40%" rounded elevation="12" color="success" @click="$router.push('/profile/register')">
           Regisztráció
         </v-btn>
       </v-card-actions>
@@ -50,6 +47,10 @@
 
 .v-btn {
   text-transform: unset;
+}
+
+.titlebg {
+  background-image: linear-gradient(to top, #CFD8DC, #78909C);
 }
 
 </style>

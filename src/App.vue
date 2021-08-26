@@ -13,6 +13,7 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
 div[data-app='true'] {
   background: no-repeat center center fixed !important;

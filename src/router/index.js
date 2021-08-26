@@ -7,6 +7,7 @@ import Search from "@/views/main/Search.vue"
 import Profile from "@/views/main/Profile.vue"
 import MyJobs from "@/views/main/MyJobs.vue"
 import MyRegistries from "@/views/main/MyRegistries.vue"
+import Login from "@/views/main/Login.vue"
 
 // employer views
 import AddNewJob from "@/views/employer/AddNewJob.vue"
@@ -59,6 +60,11 @@ const routes = [
     path: "/profile/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/profile/login",
+    name: "Login",
+    component: Login,
   },
   {
     path: "/profile/addschool",
